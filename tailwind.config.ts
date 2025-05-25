@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				'neon-lime': '#C6FF00',
+				'neon-purple': '#D500F9',
+				'electric-blue': '#00E5FF',
+				'coral': '#FF6F61',
+				'lavender': '#CE93D8'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +90,38 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'glow': {
+					'0%': {
+						boxShadow: '0 0 5px currentColor'
+					},
+					'50%': {
+						boxShadow: '0 0 20px currentColor, 0 0 30px currentColor'
+					},
+					'100%': {
+						boxShadow: '0 0 5px currentColor'
+					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'glow': 'glow 2s ease-in-out infinite',
+				'fade-in': 'fade-in 0.3s ease-out'
+			},
+			fontFamily: {
+				'poppins': ['Poppins', 'sans-serif'],
+				'inter': ['Inter', 'sans-serif']
 			}
 		}
 	},
