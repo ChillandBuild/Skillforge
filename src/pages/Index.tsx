@@ -100,6 +100,23 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Career Evolution Timeline CTA */}
+      <section className="py-20 px-4 bg-gray-900/30">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-poppins font-bold mb-6">
+            See Which <span className="text-electric-blue">Careers Are Exploding</span>
+          </h2>
+          <p className="text-xl text-gray-300 mb-8">
+            Explore interactive charts showing the fastest-growing career fields and where opportunities are expanding
+          </p>
+          <Link to="/timeline">
+            <Button className="bg-electric-blue text-black text-lg px-8 py-4 glow-button hover:bg-electric-blue/90">
+              📈 View Career Evolution Timeline
+            </Button>
+          </Link>
+        </div>
+      </section>
+
       {/* Quick Start Section */}
       <section className="py-20 px-4 bg-gray-900/50">
         <div className="max-w-4xl mx-auto text-center">

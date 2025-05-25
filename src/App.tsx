@@ -14,6 +14,7 @@ import SkillsRoadmap from "./pages/SkillsRoadmap";
 import CompareCareers from "./pages/CompareCareers";
 import CareerStories from "./pages/CareerStories";
 import Profile from "./pages/Profile";
+import CareerEvolutionTimeline from "./pages/CareerEvolutionTimeline";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App: React.FC = () => {
                 <Route path="/compare" element={<CompareCareers />} />
                 <Route path="/stories" element={<CareerStories />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/timeline" element={<CareerEvolutionTimeline />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
