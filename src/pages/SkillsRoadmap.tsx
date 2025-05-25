@@ -5,13 +5,25 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Switch } from '@/components/ui/switch';
+
+interface Course {
+  id: string;
+  title: string;
+  platform: string;
+  url: string;
+  duration: string;
+  level: 'Beginner' | 'Intermediate' | 'Advanced';
+  completed: boolean;
+}
 
 interface RoadmapStep {
   id: string;
   title: string;
   description: string;
   duration: string;
-  resources: string[];
+  courses: Course[];
   skills: string[];
   completed: boolean;
 }
@@ -28,6 +40,8 @@ interface Roadmap {
 const SkillsRoadmap = () => {
   const [selectedRoadmap, setSelectedRoadmap] = useState<Roadmap | null>(null);
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
+  const [completedCourses, setCompletedCourses] = useState<string[]>([]);
+  const [viewMode, setViewMode] = useState<'overview' | 'checklist'>('overview');
 
   const roadmaps: Roadmap[] = [
     {
@@ -42,11 +56,43 @@ const SkillsRoadmap = () => {
           title: 'HTML & CSS Fundamentals',
           description: 'Learn the building blocks of web development',
           duration: '3-4 weeks',
-          resources: [
-            'freeCodeCamp HTML/CSS Course',
-            'MDN Web Docs',
-            'CSS Grid Garden Game',
-            'Flexbox Froggy Game'
+          courses: [
+            {
+              id: 'html-css-1',
+              title: 'HTML & CSS Full Course - Beginner to Pro',
+              platform: 'YouTube (SuperSimpleDev)',
+              url: 'https://youtube.com/watch?v=G3e-cpL7ofc',
+              duration: '6.5 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'html-css-2',
+              title: 'Responsive Web Design',
+              platform: 'freeCodeCamp',
+              url: 'https://freecodecamp.org/learn/responsive-web-design/',
+              duration: '300 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'html-css-3',
+              title: 'Introduction to Web Development',
+              platform: 'edX (W3C)',
+              url: 'https://edx.org/course/introduction-web-development',
+              duration: '5 weeks',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'html-css-4',
+              title: 'CSS3 In-Depth',
+              platform: 'MIT OCW',
+              url: 'https://ocw.mit.edu/courses/web-lab-intro-to-web-development/',
+              duration: '4 weeks',
+              level: 'Intermediate',
+              completed: false
+            }
           ],
           skills: ['HTML5', 'CSS3', 'Responsive Design', 'Flexbox', 'Grid'],
           completed: false
@@ -56,11 +102,43 @@ const SkillsRoadmap = () => {
           title: 'JavaScript Fundamentals',
           description: 'Master the programming language of the web',
           duration: '4-5 weeks',
-          resources: [
-            'JavaScript.info',
-            'freeCodeCamp JavaScript Course',
-            'Eloquent JavaScript (Book)',
-            'JavaScript30 by Wes Bos'
+          courses: [
+            {
+              id: 'js-1',
+              title: 'JavaScript Full Course for Beginners',
+              platform: 'YouTube (Dave Gray)',
+              url: 'https://youtube.com/watch?v=EfAl9bwzVZk',
+              duration: '8 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'js-2',
+              title: 'JavaScript, HTML and CSS Web Development',
+              platform: 'Coursera (Johns Hopkins University)',
+              url: 'https://coursera.org/learn/html-css-javascript-for-web-developers',
+              duration: '5 weeks',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'js-3',
+              title: 'Introduction to Computer Science and Programming',
+              platform: 'MIT OCW',
+              url: 'https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/',
+              duration: '9 weeks',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'js-4',
+              title: 'JavaScript Programming',
+              platform: 'edX (University of Pennsylvania)',
+              url: 'https://edx.org/course/javascript-introduction',
+              duration: '4 weeks',
+              level: 'Intermediate',
+              completed: false
+            }
           ],
           skills: ['Variables', 'Functions', 'Objects', 'Arrays', 'DOM Manipulation'],
           completed: false
@@ -70,41 +148,36 @@ const SkillsRoadmap = () => {
           title: 'React Framework',
           description: 'Build interactive user interfaces with React',
           duration: '5-6 weeks',
-          resources: [
-            'React Official Tutorial',
-            'freeCodeCamp React Course',
-            'React Documentation',
-            'Scrimba React Course'
+          courses: [
+            {
+              id: 'react-1',
+              title: 'React Course - Beginner\'s Tutorial',
+              platform: 'YouTube (Dev Ed)',
+              url: 'https://youtube.com/watch?v=dGcsHMXbSOA',
+              duration: '2.5 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'react-2',
+              title: 'React Specialization',
+              platform: 'Coursera (Meta)',
+              url: 'https://coursera.org/specializations/react',
+              duration: '7 months',
+              level: 'Intermediate',
+              completed: false
+            },
+            {
+              id: 'react-3',
+              title: 'Introduction to ReactJS',
+              platform: 'edX (Microsoft)',
+              url: 'https://edx.org/course/introduction-reactjs',
+              duration: '5 weeks',
+              level: 'Intermediate',
+              completed: false
+            }
           ],
           skills: ['Components', 'Props', 'State', 'Hooks', 'Router'],
-          completed: false
-        },
-        {
-          id: 'step4',
-          title: 'Backend Development',
-          description: 'Learn server-side programming with Node.js',
-          duration: '4-5 weeks',
-          resources: [
-            'Node.js Official Guide',
-            'Express.js Tutorial',
-            'freeCodeCamp Backend Course',
-            'MongoDB University'
-          ],
-          skills: ['Node.js', 'Express', 'APIs', 'Databases', 'Authentication'],
-          completed: false
-        },
-        {
-          id: 'step5',
-          title: 'Full-Stack Projects',
-          description: 'Build complete applications and deploy them',
-          duration: '6-8 weeks',
-          resources: [
-            'The Odin Project',
-            'Netlify Deployment Guide',
-            'Heroku Documentation',
-            'GitHub Pages Tutorial'
-          ],
-          skills: ['Project Planning', 'Git/GitHub', 'Deployment', 'Testing'],
           completed: false
         }
       ]
@@ -121,11 +194,43 @@ const SkillsRoadmap = () => {
           title: 'Python Programming',
           description: 'Master Python for data analysis',
           duration: '4-5 weeks',
-          resources: [
-            'Python.org Tutorial',
-            'Codecademy Python Course',
-            'Python for Everybody (Coursera)',
-            'Automate the Boring Stuff'
+          courses: [
+            {
+              id: 'python-1',
+              title: 'Python for Everybody Specialization',
+              platform: 'Coursera (University of Michigan)',
+              url: 'https://coursera.org/specializations/python',
+              duration: '8 months',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'python-2',
+              title: 'Python Full Course for Beginners',
+              platform: 'YouTube (Programming with Mosh)',
+              url: 'https://youtube.com/watch?v=_uQrJ0TkZlc',
+              duration: '6 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'python-3',
+              title: 'Introduction to Computer Science and Programming',
+              platform: 'MIT OCW',
+              url: 'https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/',
+              duration: '9 weeks',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'python-4',
+              title: 'Introduction to Python Programming',
+              platform: 'edX (Georgia Tech)',
+              url: 'https://edx.org/course/introduction-python-programming',
+              duration: '5 weeks',
+              level: 'Beginner',
+              completed: false
+            }
           ],
           skills: ['Python Syntax', 'Data Types', 'Control Flow', 'Functions', 'Libraries'],
           completed: false
@@ -135,27 +240,73 @@ const SkillsRoadmap = () => {
           title: 'Data Analysis Libraries',
           description: 'Learn pandas, NumPy, and data manipulation',
           duration: '3-4 weeks',
-          resources: [
-            'Pandas Documentation',
-            'NumPy Quickstart',
-            'Kaggle Learn Pandas',
-            'Python Data Science Handbook'
+          courses: [
+            {
+              id: 'pandas-1',
+              title: 'Pandas & Python for Data Analysis',
+              platform: 'YouTube (Keith Galli)',
+              url: 'https://youtube.com/playlist?list=PLFCB5Dp81iNVmuoGIqcT5oF4K-7kTI5vp',
+              duration: '4 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'pandas-2',
+              title: 'Applied Data Science with Python',
+              platform: 'Coursera (University of Michigan)',
+              url: 'https://coursera.org/specializations/data-science-python',
+              duration: '5 months',
+              level: 'Intermediate',
+              completed: false
+            },
+            {
+              id: 'pandas-3',
+              title: 'Data Analysis for Social Scientists',
+              platform: 'MIT OCW',
+              url: 'https://ocw.mit.edu/courses/14-310x-data-analysis-for-social-scientists-spring-2023/',
+              duration: '12 weeks',
+              level: 'Intermediate',
+              completed: false
+            }
           ],
           skills: ['Pandas', 'NumPy', 'Data Cleaning', 'Data Manipulation'],
           completed: false
         },
         {
           id: 'ds-step3',
-          title: 'Statistics & Mathematics',
-          description: 'Build statistical foundation for data science',
-          duration: '5-6 weeks',
-          resources: [
-            'Khan Academy Statistics',
-            'Think Stats (Book)',
-            'Statistics for Data Science (Coursera)',
-            'StatQuest YouTube Channel'
+          title: 'Machine Learning',
+          description: 'Build predictive models with scikit-learn',
+          duration: '6-8 weeks',
+          courses: [
+            {
+              id: 'ml-1',
+              title: 'Machine Learning Course',
+              platform: 'Coursera (Stanford University)',
+              url: 'https://coursera.org/learn/machine-learning',
+              duration: '11 weeks',
+              level: 'Intermediate',
+              completed: false
+            },
+            {
+              id: 'ml-2',
+              title: 'Machine Learning Explained',
+              platform: 'YouTube (Zach Star)',
+              url: 'https://youtube.com/playlist?list=PLblh5JKOoLUIcdlgu78MnlATeyx4cEVeR',
+              duration: '3 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'ml-3',
+              title: 'Introduction to Machine Learning',
+              platform: 'MIT OCW',
+              url: 'https://ocw.mit.edu/courses/6-034-artificial-intelligence-fall-2010/',
+              duration: '16 weeks',
+              level: 'Advanced',
+              completed: false
+            }
           ],
-          skills: ['Descriptive Statistics', 'Probability', 'Hypothesis Testing', 'Regression'],
+          skills: ['Scikit-learn', 'Supervised Learning', 'Unsupervised Learning', 'Model Evaluation'],
           completed: false
         }
       ]
@@ -169,14 +320,37 @@ const SkillsRoadmap = () => {
       steps: [
         {
           id: 'ux-step1',
-          title: 'Design Principles',
+          title: 'Design Fundamentals',
           description: 'Learn fundamental design theory and principles',
           duration: '2-3 weeks',
-          resources: [
-            'Google Design Course',
-            'Design Better by InVision',
-            'The Design of Everyday Things',
-            'Material Design Guidelines'
+          courses: [
+            {
+              id: 'design-1',
+              title: 'UI/UX Design Tutorial - Figma',
+              platform: 'YouTube (DesignCourse)',
+              url: 'https://youtube.com/watch?v=c9Wg6Cb_YlU',
+              duration: '3 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'design-2',
+              title: 'Google UX Design Professional Certificate',
+              platform: 'Coursera (Google)',
+              url: 'https://coursera.org/professional-certificates/google-ux-design',
+              duration: '6 months',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'design-3',
+              title: 'Introduction to User Experience Design',
+              platform: 'edX (University of Michigan)',
+              url: 'https://edx.org/course/introduction-user-experience-design',
+              duration: '4 weeks',
+              level: 'Beginner',
+              completed: false
+            }
           ],
           skills: ['Design Theory', 'Color Theory', 'Typography', 'Layout'],
           completed: false
@@ -186,13 +360,183 @@ const SkillsRoadmap = () => {
           title: 'User Research',
           description: 'Understand users through research and testing',
           duration: '3-4 weeks',
-          resources: [
-            'IDEO Design Kit',
-            'User Research Course (Coursera)',
-            'Nielsen Norman Group Articles',
-            'UXPin User Research Guide'
+          courses: [
+            {
+              id: 'research-1',
+              title: 'UX Research Methods',
+              platform: 'YouTube (AJ&Smart)',
+              url: 'https://youtube.com/playlist?list=PLxk9zj3EDi0PQWN0FlKKZe2yt6oMRyYGO',
+              duration: '2 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'research-2',
+              title: 'User Experience Research and Design',
+              platform: 'Coursera (University of Michigan)',
+              url: 'https://coursera.org/specializations/michiganux',
+              duration: '6 months',
+              level: 'Intermediate',
+              completed: false
+            },
+            {
+              id: 'research-3',
+              title: 'The Psychology of Human-Computer Interaction',
+              platform: 'MIT OCW',
+              url: 'https://ocw.mit.edu/courses/psychology-human-computer-interaction/',
+              duration: '8 weeks',
+              level: 'Advanced',
+              completed: false
+            }
           ],
           skills: ['User Interviews', 'Personas', 'User Journey Mapping', 'Usability Testing'],
+          completed: false
+        }
+      ]
+    },
+    {
+      id: 'cybersecurity',
+      title: 'Cybersecurity Specialist',
+      description: 'Protect systems and data from digital threats',
+      duration: '6-8 months',
+      difficulty: 'Intermediate',
+      steps: [
+        {
+          id: 'cyber-step1',
+          title: 'Security Fundamentals',
+          description: 'Learn basic cybersecurity concepts and principles',
+          duration: '3-4 weeks',
+          courses: [
+            {
+              id: 'security-1',
+              title: 'Cybersecurity for Beginners',
+              platform: 'YouTube (NetworkChuck)',
+              url: 'https://youtube.com/playlist?list=PLIhvC56v63IK8KoBbOQ8e0w0_9xF4pFOI',
+              duration: '5 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'security-2',
+              title: 'IBM Cybersecurity Analyst',
+              platform: 'Coursera (IBM)',
+              url: 'https://coursera.org/professional-certificates/ibm-cybersecurity-analyst',
+              duration: '8 months',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'security-3',
+              title: 'Introduction to Cybersecurity',
+              platform: 'edX (University of Washington)',
+              url: 'https://edx.org/course/introduction-cybersecurity',
+              duration: '6 weeks',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'security-4',
+              title: 'Computer Systems Security',
+              platform: 'MIT OCW',
+              url: 'https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/',
+              duration: '16 weeks',
+              level: 'Advanced',
+              completed: false
+            }
+          ],
+          skills: ['Network Security', 'Risk Assessment', 'Incident Response', 'Compliance'],
+          completed: false
+        }
+      ]
+    },
+    {
+      id: 'cloud-computing',
+      title: 'Cloud Computing Engineer',
+      description: 'Design and manage cloud infrastructure and services',
+      duration: '5-7 months',
+      difficulty: 'Intermediate',
+      steps: [
+        {
+          id: 'cloud-step1',
+          title: 'Cloud Fundamentals',
+          description: 'Understanding cloud computing concepts and models',
+          duration: '2-3 weeks',
+          courses: [
+            {
+              id: 'cloud-1',
+              title: 'AWS Cloud Practitioner Course',
+              platform: 'YouTube (FreeCodeCamp)',
+              url: 'https://youtube.com/watch?v=3hLmDS179YE',
+              duration: '4 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'cloud-2',
+              title: 'Cloud Computing Specialization',
+              platform: 'Coursera (University of Illinois)',
+              url: 'https://coursera.org/specializations/cloud-computing',
+              duration: '6 months',
+              level: 'Intermediate',
+              completed: false
+            },
+            {
+              id: 'cloud-3',
+              title: 'Introduction to Cloud Computing',
+              platform: 'edX (IBM)',
+              url: 'https://edx.org/course/introduction-cloud-computing',
+              duration: '4 weeks',
+              level: 'Beginner',
+              completed: false
+            }
+          ],
+          skills: ['AWS', 'Azure', 'Docker', 'Kubernetes', 'DevOps'],
+          completed: false
+        }
+      ]
+    },
+    {
+      id: 'digital-marketing',
+      title: 'Digital Marketing Specialist',
+      description: 'Master online marketing strategies and tools',
+      duration: '3-5 months',
+      difficulty: 'Beginner',
+      steps: [
+        {
+          id: 'marketing-step1',
+          title: 'Marketing Fundamentals',
+          description: 'Learn core digital marketing concepts',
+          duration: '2-3 weeks',
+          courses: [
+            {
+              id: 'marketing-1',
+              title: 'Digital Marketing Course',
+              platform: 'YouTube (Simplilearn)',
+              url: 'https://youtube.com/watch?v=bixR-KIJKYM',
+              duration: '11 hours',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'marketing-2',
+              title: 'Google Digital Marketing & E-commerce',
+              platform: 'Coursera (Google)',
+              url: 'https://coursera.org/professional-certificates/google-digital-marketing-ecommerce',
+              duration: '6 months',
+              level: 'Beginner',
+              completed: false
+            },
+            {
+              id: 'marketing-3',
+              title: 'Digital Marketing Strategy',
+              platform: 'edX (University of Pennsylvania)',
+              url: 'https://edx.org/course/digital-marketing-strategy',
+              duration: '5 weeks',
+              level: 'Intermediate',
+              completed: false
+            }
+          ],
+          skills: ['SEO', 'Social Media Marketing', 'Content Marketing', 'PPC', 'Analytics'],
           completed: false
         }
       ]
@@ -207,9 +551,22 @@ const SkillsRoadmap = () => {
     );
   };
 
+  const toggleCourseCompletion = (courseId: string) => {
+    setCompletedCourses(prev => 
+      prev.includes(courseId) 
+        ? prev.filter(id => id !== courseId)
+        : [...prev, courseId]
+    );
+  };
+
   const getProgress = (roadmap: Roadmap) => {
     const completed = roadmap.steps.filter(step => completedSteps.includes(step.id)).length;
     return (completed / roadmap.steps.length) * 100;
+  };
+
+  const getCourseProgress = (step: RoadmapStep) => {
+    const completed = step.courses.filter(course => completedCourses.includes(course.id)).length;
+    return (completed / step.courses.length) * 100;
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -219,6 +576,15 @@ const SkillsRoadmap = () => {
       case 'Advanced': return 'text-red-500';
       default: return 'text-gray-400';
     }
+  };
+
+  const getPlatformIcon = (platform: string) => {
+    if (platform.includes('YouTube')) return '🎥';
+    if (platform.includes('Coursera')) return '🎓';
+    if (platform.includes('edX')) return '📚';
+    if (platform.includes('MIT OCW')) return '🏛️';
+    if (platform.includes('freeCodeCamp')) return '💻';
+    return '📖';
   };
 
   if (selectedRoadmap) {
@@ -251,93 +617,224 @@ const SkillsRoadmap = () => {
               </div>
             </div>
 
-            <div className="max-w-md mx-auto">
+            <div className="max-w-md mx-auto mb-6">
               <div className="flex justify-between mb-2">
                 <span className="text-sm text-gray-400">Progress</span>
                 <span className="text-sm text-neon-lime">{Math.round(progress)}%</span>
               </div>
               <Progress value={progress} className="h-3" />
             </div>
+
+            {/* View Mode Toggle */}
+            <ToggleGroup 
+              type="single" 
+              value={viewMode} 
+              onValueChange={(value) => value && setViewMode(value as 'overview' | 'checklist')}
+              className="justify-center mb-6"
+            >
+              <ToggleGroupItem value="overview" className="bg-gray-800 data-[state=on]:bg-neon-lime data-[state=on]:text-black">
+                📋 Overview
+              </ToggleGroupItem>
+              <ToggleGroupItem value="checklist" className="bg-gray-800 data-[state=on]:bg-electric-blue data-[state=on]:text-black">
+                ✅ Checklist
+              </ToggleGroupItem>
+            </ToggleGroup>
           </div>
 
-          {/* Roadmap Steps */}
-          <div className="space-y-6">
-            <Accordion type="single" collapsible className="space-y-4">
+          {/* Content based on view mode */}
+          {viewMode === 'overview' ? (
+            <div className="space-y-6">
+              <Accordion type="single" collapsible className="space-y-4">
+                {selectedRoadmap.steps.map((step, index) => {
+                  const isCompleted = completedSteps.includes(step.id);
+                  const courseProgress = getCourseProgress(step);
+                  
+                  return (
+                    <AccordionItem key={step.id} value={step.id}>
+                      <Card className={`glass-card transition-all ${
+                        isCompleted ? 'border-neon-lime' : 'border-gray-800'
+                      }`}>
+                        <AccordionTrigger className="px-6 py-4 hover:no-underline">
+                          <div className="flex items-center gap-4 w-full">
+                            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                              isCompleted ? 'bg-neon-lime text-black' : 'bg-gray-700 text-white'
+                            }`}>
+                              {isCompleted ? '✓' : index + 1}
+                            </div>
+                            <div className="flex-1 text-left">
+                              <h3 className={`text-lg font-poppins font-bold ${
+                                isCompleted ? 'text-neon-lime' : 'text-white'
+                              }`}>
+                                {step.title}
+                              </h3>
+                              <p className="text-gray-400 text-sm">{step.description}</p>
+                            </div>
+                            <Badge variant="outline" className="border-electric-blue text-electric-blue">
+                              {step.duration}
+                            </Badge>
+                          </div>
+                        </AccordionTrigger>
+                        
+                        <AccordionContent>
+                          <div className="px-6 pb-6 space-y-6">
+                            {/* Course Progress */}
+                            <div>
+                              <div className="flex justify-between mb-2">
+                                <span className="text-sm text-gray-400">Course Progress</span>
+                                <span className="text-sm text-electric-blue">{Math.round(courseProgress)}%</span>
+                              </div>
+                              <Progress value={courseProgress} className="h-2" />
+                            </div>
+
+                            {/* Free Courses */}
+                            <div>
+                              <h4 className="font-semibold text-electric-blue mb-3">📚 Free Learning Resources</h4>
+                              <div className="space-y-3">
+                                {step.courses.map((course) => {
+                                  const isCourseCompleted = completedCourses.includes(course.id);
+                                  return (
+                                    <div key={course.id} className={`p-3 rounded-lg border transition-all ${
+                                      isCourseCompleted ? 'border-neon-lime bg-neon-lime/5' : 'border-gray-700 bg-gray-800/50'
+                                    }`}>
+                                      <div className="flex items-start gap-3">
+                                        <div className="flex items-center gap-2 mt-1">
+                                          <Switch
+                                            checked={isCourseCompleted}
+                                            onCheckedChange={() => toggleCourseCompletion(course.id)}
+                                          />
+                                          <span className="text-lg">{getPlatformIcon(course.platform)}</span>
+                                        </div>
+                                        <div className="flex-1">
+                                          <h5 className={`font-medium ${isCourseCompleted ? 'text-neon-lime' : 'text-white'}`}>
+                                            {course.title}
+                                          </h5>
+                                          <div className="flex items-center gap-4 text-sm text-gray-400 mt-1">
+                                            <span>{course.platform}</span>
+                                            <span>⏱️ {course.duration}</span>
+                                            <Badge variant="outline" className={`text-xs ${getDifficultyColor(course.level)} border-current`}>
+                                              {course.level}
+                                            </Badge>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+
+                            {/* Skills */}
+                            <div>
+                              <h4 className="font-semibold text-neon-purple mb-3">🎯 Skills You'll Learn</h4>
+                              <div className="flex flex-wrap gap-2">
+                                {step.skills.map((skill, idx) => (
+                                  <Badge key={idx} variant="secondary" className="bg-gray-800 text-neon-lime">
+                                    {skill}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Action Button */}
+                            <Button
+                              onClick={() => toggleStepCompletion(step.id)}
+                              className={`w-full ${
+                                isCompleted 
+                                  ? 'bg-neon-lime text-black hover:bg-neon-lime/90' 
+                                  : 'bg-gray-800 text-neon-lime border border-gray-700 hover:bg-neon-lime hover:text-black'
+                              }`}
+                            >
+                              {isCompleted ? '✓ Completed' : 'Mark as Complete'}
+                            </Button>
+                          </div>
+                        </AccordionContent>
+                      </Card>
+                    </AccordionItem>
+                  );
+                })}
+              </Accordion>
+            </div>
+          ) : (
+            // Checklist Mode
+            <div className="space-y-6">
               {selectedRoadmap.steps.map((step, index) => {
-                const isCompleted = completedSteps.includes(step.id);
+                const isStepCompleted = completedSteps.includes(step.id);
+                const courseProgress = getCourseProgress(step);
                 
                 return (
-                  <AccordionItem key={step.id} value={step.id}>
-                    <Card className={`glass-card transition-all ${
-                      isCompleted ? 'border-neon-lime' : 'border-gray-800'
-                    }`}>
-                      <AccordionTrigger className="px-6 py-4 hover:no-underline">
-                        <div className="flex items-center gap-4 w-full">
-                          <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                            isCompleted ? 'bg-neon-lime text-black' : 'bg-gray-700 text-white'
-                          }`}>
-                            {isCompleted ? '✓' : index + 1}
-                          </div>
-                          <div className="flex-1 text-left">
-                            <h3 className={`text-lg font-poppins font-bold ${
-                              isCompleted ? 'text-neon-lime' : 'text-white'
-                            }`}>
-                              {step.title}
-                            </h3>
-                            <p className="text-gray-400 text-sm">{step.description}</p>
-                          </div>
-                          <Badge variant="outline" className="border-electric-blue text-electric-blue">
-                            {step.duration}
-                          </Badge>
+                  <Card key={step.id} className="glass-card border-gray-800">
+                    <CardHeader>
+                      <div className="flex items-center gap-4">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                          isStepCompleted ? 'bg-neon-lime text-black' : 'bg-gray-700 text-white'
+                        }`}>
+                          {isStepCompleted ? '✓' : index + 1}
                         </div>
-                      </AccordionTrigger>
-                      
-                      <AccordionContent>
-                        <div className="px-6 pb-6 space-y-6">
-                          {/* Skills */}
-                          <div>
-                            <h4 className="font-semibold text-neon-purple mb-3">🎯 Skills You'll Learn</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {step.skills.map((skill, idx) => (
-                                <Badge key={idx} variant="secondary" className="bg-gray-800 text-neon-lime">
-                                  {skill}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Resources */}
-                          <div>
-                            <h4 className="font-semibold text-electric-blue mb-3">📚 Learning Resources</h4>
-                            <ul className="space-y-2">
-                              {step.resources.map((resource, idx) => (
-                                <li key={idx} className="text-gray-300 flex items-center gap-2">
-                                  <span className="text-neon-lime">•</span>
-                                  {resource}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* Action Button */}
+                        <div className="flex-1">
+                          <CardTitle className={`${isStepCompleted ? 'text-neon-lime' : 'text-white'}`}>
+                            {step.title}
+                          </CardTitle>
+                          <p className="text-gray-400 text-sm">{step.description}</p>
+                        </div>
+                        <Badge variant="outline" className="border-electric-blue text-electric-blue">
+                          {step.duration}
+                        </Badge>
+                      </div>
+                      <div className="mt-4">
+                        <div className="flex justify-between mb-2">
+                          <span className="text-sm text-gray-400">Course Completion</span>
+                          <span className="text-sm text-electric-blue">{Math.round(courseProgress)}%</span>
+                        </div>
+                        <Progress value={courseProgress} className="h-2" />
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <h4 className="font-semibold text-electric-blue">📋 Course Checklist</h4>
+                        <div className="grid gap-3">
+                          {step.courses.map((course) => {
+                            const isCourseCompleted = completedCourses.includes(course.id);
+                            return (
+                              <div key={course.id} className={`flex items-center gap-3 p-3 rounded border transition-all ${
+                                isCourseCompleted ? 'border-neon-lime bg-neon-lime/5' : 'border-gray-700'
+                              }`}>
+                                <Switch
+                                  checked={isCourseCompleted}
+                                  onCheckedChange={() => toggleCourseCompletion(course.id)}
+                                />
+                                <span className="text-lg">{getPlatformIcon(course.platform)}</span>
+                                <div className="flex-1">
+                                  <div className={`font-medium ${isCourseCompleted ? 'text-neon-lime line-through' : 'text-white'}`}>
+                                    {course.title}
+                                  </div>
+                                  <div className="text-sm text-gray-400">
+                                    {course.platform} • {course.duration} • {course.level}
+                                  </div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                        
+                        <div className="pt-4 border-t border-gray-700">
                           <Button
                             onClick={() => toggleStepCompletion(step.id)}
                             className={`w-full ${
-                              isCompleted 
+                              isStepCompleted 
                                 ? 'bg-neon-lime text-black hover:bg-neon-lime/90' 
                                 : 'bg-gray-800 text-neon-lime border border-gray-700 hover:bg-neon-lime hover:text-black'
                             }`}
                           >
-                            {isCompleted ? '✓ Completed' : 'Mark as Complete'}
+                            {isStepCompleted ? '✓ Step Completed' : 'Mark Step as Complete'}
                           </Button>
                         </div>
-                      </AccordionContent>
-                    </Card>
-                  </AccordionItem>
+                      </div>
+                    </CardContent>
+                  </Card>
                 );
               })}
-            </Accordion>
-          </div>
+            </div>
+          )}
 
           {/* Next Steps */}
           <div className="mt-12 text-center">
