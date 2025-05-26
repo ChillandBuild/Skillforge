@@ -36,7 +36,15 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [badges, setBadges] = useState<Badge[]>(() => {
     const saved = localStorage.getItem('careerflow-badges');
-    return saved ? JSON.parse(saved) : initialBadges;
+    if (saved) {
+      const parsedBadges = JSON.parse(saved);
+      // Convert earnedDate strings back to Date objects
+      return parsedBadges.map((badge: any) => ({
+        ...badge,
+        earnedDate: badge.earnedDate ? new Date(badge.earnedDate) : undefined
+      }));
+    }
+    return initialBadges;
   });
 
   useEffect(() => {
