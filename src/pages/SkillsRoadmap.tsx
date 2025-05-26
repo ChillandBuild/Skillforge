@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,11 +5,14 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useGame } from '@/contexts/GameContext';
+import { useToast } from '@/hooks/use-toast';
 
 const SkillsRoadmap = () => {
   const { addPoints } = useGame();
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [enrolledRoadmaps, setEnrolledRoadmaps] = useState<number[]>([]);
 
   const roadmaps = [
     {
@@ -22,7 +24,7 @@ const SkillsRoadmap = () => {
       skills: ['HTML/CSS', 'JavaScript', 'React', 'Node.js', 'Database'],
       progress: 0,
       category: 'tech',
-      enrolled: false
+      learningUrl: 'https://www.freecodecamp.org/learn/responsive-web-design/'
     },
     {
       id: 2,
@@ -33,7 +35,7 @@ const SkillsRoadmap = () => {
       skills: ['SEO', 'Social Media', 'Content Marketing', 'Analytics'],
       progress: 0,
       category: 'marketing',
-      enrolled: false
+      learningUrl: 'https://www.coursera.org/learn/introduction-digital-marketing'
     },
     {
       id: 3,
@@ -44,7 +46,7 @@ const SkillsRoadmap = () => {
       skills: ['Design Thinking', 'Figma', 'Prototyping', 'User Research'],
       progress: 0,
       category: 'design',
-      enrolled: false
+      learningUrl: 'https://www.coursera.org/learn/ui-ux-design'
     },
     {
       id: 4,
@@ -55,7 +57,7 @@ const SkillsRoadmap = () => {
       skills: ['Excel', 'SQL', 'Python', 'Data Visualization'],
       progress: 0,
       category: 'data',
-      enrolled: false
+      learningUrl: 'https://www.kaggle.com/learn'
     },
     {
       id: 5,
@@ -66,7 +68,7 @@ const SkillsRoadmap = () => {
       skills: ['Python', 'Machine Learning', 'TensorFlow', 'Neural Networks'],
       progress: 0,
       category: 'tech',
-      enrolled: false
+      learningUrl: 'https://www.coursera.org/learn/machine-learning'
     }
   ];
 
@@ -89,9 +91,25 @@ const SkillsRoadmap = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const handleStartRoadmap = (roadmapId: number) => {
+  const handleStartRoadmap = (roadmap: typeof roadmaps[0]) => {
+    // Add to enrolled roadmaps
+    setEnrolledRoadmaps(prev => [...prev, roadmap.id]);
+    
+    // Add points for starting a roadmap
     addPoints(30);
-    console.log(`Starting roadmap ${roadmapId}`);
+    
+    // Show success toast
+    toast({
+      title: "🚀 Learning Started!",
+      description: `You've enrolled in ${roadmap.title}. Opening learning resources...`,
+    });
+    
+    // Open the learning URL in a new tab
+    setTimeout(() => {
+      window.open(roadmap.learningUrl, '_blank');
+    }, 1000);
+    
+    console.log(`Started roadmap: ${roadmap.title}`);
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -166,44 +184,59 @@ const SkillsRoadmap = () => {
 
         {/* Roadmap Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredRoadmaps.map((roadmap) => (
-            <Card key={roadmap.id} className="glass-card border-gray-800 hover:border-cyan-400 transition-all duration-300">
-              <CardHeader>
-                <div className="flex justify-between items-start mb-2">
-                  <CardTitle className="text-xl text-white">{roadmap.title}</CardTitle>
-                  <Badge className={`${getDifficultyColor(roadmap.difficulty)} text-white`}>
-                    {roadmap.difficulty}
-                  </Badge>
-                </div>
-                <p className="text-gray-400 text-sm">{roadmap.description}</p>
-              </CardHeader>
-              
-              <CardContent className="space-y-4">
-                <div className="flex justify-between text-sm text-gray-400">
-                  <span>⏱️ {roadmap.duration}</span>
-                  <span>🎯 {roadmap.skills.length} skills</span>
-                </div>
-
-                <div className="space-y-2">
-                  <h4 className="text-sm font-semibold text-gray-300">Key Skills:</h4>
-                  <div className="flex flex-wrap gap-1">
-                    {roadmap.skills.map((skill, index) => (
-                      <Badge key={index} variant="outline" className="text-xs border-gray-600 text-gray-300">
-                        {skill}
+          {filteredRoadmaps.map((roadmap) => {
+            const isEnrolled = enrolledRoadmaps.includes(roadmap.id);
+            
+            return (
+              <Card key={roadmap.id} className="glass-card border-gray-800 hover:border-cyan-400 transition-all duration-300">
+                <CardHeader>
+                  <div className="flex justify-between items-start mb-2">
+                    <CardTitle className="text-xl text-white">{roadmap.title}</CardTitle>
+                    <div className="flex gap-2">
+                      <Badge className={`${getDifficultyColor(roadmap.difficulty)} text-white`}>
+                        {roadmap.difficulty}
                       </Badge>
-                    ))}
+                      {isEnrolled && (
+                        <Badge className="bg-green-500 text-white">
+                          Enrolled
+                        </Badge>
+                      )}
+                    </div>
                   </div>
-                </div>
+                  <p className="text-gray-400 text-sm">{roadmap.description}</p>
+                </CardHeader>
+                
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between text-sm text-gray-400">
+                    <span>⏱️ {roadmap.duration}</span>
+                    <span>🎯 {roadmap.skills.length} skills</span>
+                  </div>
 
-                <Button
-                  className="w-full bg-gradient-to-r from-cyan-400 to-emerald-500 text-black hover:from-cyan-500 hover:to-emerald-600 glow-button font-semibold"
-                  onClick={() => handleStartRoadmap(roadmap.id)}
-                >
-                  🚀 Start Learning Free
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-semibold text-gray-300">Key Skills:</h4>
+                    <div className="flex flex-wrap gap-1">
+                      {roadmap.skills.map((skill, index) => (
+                        <Badge key={index} variant="outline" className="text-xs border-gray-600 text-gray-300">
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Button
+                    className={`w-full font-semibold ${
+                      isEnrolled 
+                        ? 'bg-green-600 hover:bg-green-700 text-white'
+                        : 'bg-gradient-to-r from-cyan-400 to-emerald-500 text-black hover:from-cyan-500 hover:to-emerald-600 glow-button'
+                    }`}
+                    onClick={() => handleStartRoadmap(roadmap)}
+                  >
+                    {isEnrolled ? '✅ Continue Learning' : '🚀 Start Learning Free'}
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {filteredRoadmaps.length === 0 && (
