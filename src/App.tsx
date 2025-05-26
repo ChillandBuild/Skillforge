@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GameProvider } from "@/contexts/GameContext";
 import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import CareerQuiz from "./pages/CareerQuiz";
 import RoleLibrary from "./pages/RoleLibrary";
@@ -27,19 +28,22 @@ const App: React.FC = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <div className="min-h-screen bg-black">
+            <div className="min-h-screen bg-black flex flex-col">
               <Navigation />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/quiz" element={<CareerQuiz />} />
-                <Route path="/roles" element={<RoleLibrary />} />
-                <Route path="/roadmap" element={<SkillsRoadmap />} />
-                <Route path="/compare" element={<CompareCareers />} />
-                <Route path="/stories" element={<CareerStories />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/timeline" element={<CareerEvolutionTimeline />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/quiz" element={<CareerQuiz />} />
+                  <Route path="/roles" element={<RoleLibrary />} />
+                  <Route path="/roadmap" element={<SkillsRoadmap />} />
+                  <Route path="/compare" element={<CompareCareers />} />
+                  <Route path="/stories" element={<CareerStories />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/timeline" element={<CareerEvolutionTimeline />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
             </div>
           </BrowserRouter>
         </GameProvider>
