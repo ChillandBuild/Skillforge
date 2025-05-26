@@ -5,10 +5,11 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useGame } from '@/contexts/GameContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const { points, badges, getBadgeProgress } = useGame();
+  const navigate = useNavigate();
 
   // Mock user data - in a real app, this would come from your auth system
   const user = {
@@ -60,6 +61,10 @@ const Profile = () => {
   const nextLevelPoints = Math.ceil(points / 100) * 100;
   const progressToNextLevel = ((points % 100) / 100) * 100;
 
+  const handleContinueAsGuest = () => {
+    navigate('/');
+  };
+
   // If user is not authenticated, show sign in/up options
   if (!user.isAuthenticated) {
     return (
@@ -93,9 +98,9 @@ const Profile = () => {
               <Button 
                 variant="ghost" 
                 className="text-gray-400 hover:text-neon-lime"
-                onClick={() => {/* Continue as guest logic */}}
+                onClick={handleContinueAsGuest}
               >
-                Continue browsing →
+                Continue exploring →
               </Button>
             </div>
           </CardContent>

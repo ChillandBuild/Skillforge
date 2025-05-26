@@ -20,9 +20,9 @@ const SkillsRoadmap = () => {
       duration: '6-12 months',
       difficulty: 'Intermediate',
       skills: ['HTML/CSS', 'JavaScript', 'React', 'Node.js', 'Database'],
-      progress: 25,
+      progress: 0,
       category: 'tech',
-      enrolled: true
+      enrolled: false
     },
     {
       id: 2,
@@ -42,9 +42,9 @@ const SkillsRoadmap = () => {
       duration: '4-8 months',
       difficulty: 'Intermediate',
       skills: ['Design Thinking', 'Figma', 'Prototyping', 'User Research'],
-      progress: 60,
+      progress: 0,
       category: 'design',
-      enrolled: true
+      enrolled: false
     },
     {
       id: 4,
@@ -59,13 +59,13 @@ const SkillsRoadmap = () => {
     },
     {
       id: 5,
-      title: 'Project Manager',
-      description: 'Lead teams and deliver successful projects',
-      duration: '3-5 months',
-      difficulty: 'Beginner',
-      skills: ['Agile', 'Scrum', 'Leadership', 'Communication'],
+      title: 'AI Engineer',
+      description: 'Build intelligent systems and machine learning models',
+      duration: '8-12 months',
+      difficulty: 'Advanced',
+      skills: ['Python', 'Machine Learning', 'TensorFlow', 'Neural Networks'],
       progress: 0,
-      category: 'business',
+      category: 'tech',
       enrolled: false
     }
   ];
@@ -92,13 +92,12 @@ const SkillsRoadmap = () => {
   const handleStartRoadmap = (roadmapId: number) => {
     addPoints(30);
     console.log(`Starting roadmap ${roadmapId}`);
-    // Here you would typically update the roadmap enrollment status
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Beginner': return 'bg-green-500';
-      case 'Intermediate': return 'bg-yellow-500';
+      case 'Beginner': return 'bg-emerald-500';
+      case 'Intermediate': return 'bg-amber-500';
       case 'Advanced': return 'bg-red-500';
       default: return 'bg-gray-500';
     }
@@ -110,11 +109,26 @@ const SkillsRoadmap = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-poppins font-bold mb-4">
-            Skills <span className="text-neon-lime">Roadmap</span>
+            Learn Skills <span className="text-cyan-400">Anywhere</span>
           </h1>
-          <p className="text-xl text-gray-300 mb-8">
-            Choose your learning path and master the skills you need for your dream career
+          <p className="text-xl text-gray-300 mb-4">
+            Skip the college debt. Master in-demand skills with free online resources.
           </p>
+          <p className="text-lg text-gray-400 mb-8">
+            Build your career from anywhere in the world with just an internet connection
+          </p>
+          
+          <div className="flex justify-center gap-4 mb-8">
+            <Badge className="bg-cyan-400 text-black text-lg px-4 py-2">
+              🆓 100% Free Resources
+            </Badge>
+            <Badge className="bg-emerald-500 text-black text-lg px-4 py-2">
+              🌍 Learn From Home
+            </Badge>
+            <Badge className="bg-amber-500 text-black text-lg px-4 py-2">
+              🚀 No Degree Required
+            </Badge>
+          </div>
           
           {/* Search and Filter */}
           <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-8">
@@ -139,8 +153,8 @@ const SkillsRoadmap = () => {
                   onClick={() => setSelectedCategory(category.id)}
                   className={`${
                     selectedCategory === category.id 
-                      ? 'bg-neon-lime text-black' 
-                      : 'text-white border-gray-600 hover:border-neon-lime'
+                      ? 'bg-cyan-400 text-black hover:bg-cyan-500' 
+                      : 'text-white border-gray-600 hover:border-cyan-400'
                   }`}
                 >
                   {category.name}
@@ -153,7 +167,7 @@ const SkillsRoadmap = () => {
         {/* Roadmap Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredRoadmaps.map((roadmap) => (
-            <Card key={roadmap.id} className="glass-card border-gray-800 hover:border-neon-lime transition-all duration-300">
+            <Card key={roadmap.id} className="glass-card border-gray-800 hover:border-cyan-400 transition-all duration-300">
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
                   <CardTitle className="text-xl text-white">{roadmap.title}</CardTitle>
@@ -170,16 +184,6 @@ const SkillsRoadmap = () => {
                   <span>🎯 {roadmap.skills.length} skills</span>
                 </div>
 
-                {roadmap.enrolled && (
-                  <div>
-                    <div className="flex justify-between mb-2">
-                      <span className="text-sm text-gray-400">Progress</span>
-                      <span className="text-sm text-neon-lime">{roadmap.progress}%</span>
-                    </div>
-                    <Progress value={roadmap.progress} className="h-2" />
-                  </div>
-                )}
-
                 <div className="space-y-2">
                   <h4 className="text-sm font-semibold text-gray-300">Key Skills:</h4>
                   <div className="flex flex-wrap gap-1">
@@ -192,14 +196,10 @@ const SkillsRoadmap = () => {
                 </div>
 
                 <Button
-                  className={`w-full glow-button ${
-                    roadmap.enrolled 
-                      ? 'bg-electric-blue text-black hover:bg-electric-blue/90' 
-                      : 'bg-neon-lime text-black hover:bg-neon-lime/90'
-                  }`}
+                  className="w-full bg-gradient-to-r from-cyan-400 to-emerald-500 text-black hover:from-cyan-500 hover:to-emerald-600 glow-button font-semibold"
                   onClick={() => handleStartRoadmap(roadmap.id)}
                 >
-                  {roadmap.enrolled ? '📚 Continue Learning' : '🚀 Start Roadmap'}
+                  🚀 Start Learning Free
                 </Button>
               </CardContent>
             </Card>
@@ -218,14 +218,15 @@ const SkillsRoadmap = () => {
         <div className="text-center mt-16">
           <Card className="glass-card border-gray-800 max-w-2xl mx-auto">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-poppins font-bold text-neon-lime mb-4">
-                🎯 Can't Find Your Path?
+              <h3 className="text-2xl font-poppins font-bold text-cyan-400 mb-4">
+                🎯 Ready to Transform Your Future?
               </h3>
               <p className="text-gray-300 mb-6">
-                Request a custom roadmap tailored to your specific career goals and interests.
+                Join thousands who've built successful careers using only free online resources. 
+                No student loans, no classroom limits - just you, your determination, and the internet.
               </p>
-              <Button className="bg-neon-purple text-white glow-button" onClick={() => addPoints(10)}>
-                📝 Request Custom Roadmap
+              <Button className="bg-gradient-to-r from-emerald-500 to-cyan-400 text-black font-semibold glow-button" onClick={() => addPoints(10)}>
+                📝 Request Custom Learning Path
               </Button>
             </CardContent>
           </Card>

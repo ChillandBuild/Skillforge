@@ -11,6 +11,8 @@ const CareerEvolutionTimeline = () => {
   const careerGrowthData = [
     {
       year: '2019',
+      'AI Engineer': 45,
+      'AI Generalist': 25,
       'Data Science': 85,
       'Cloud Computing': 120,
       'UX/UI Design': 95,
@@ -20,6 +22,8 @@ const CareerEvolutionTimeline = () => {
     },
     {
       year: '2020',
+      'AI Engineer': 65,
+      'AI Generalist': 40,
       'Data Science': 105,
       'Cloud Computing': 160,
       'UX/UI Design': 115,
@@ -29,6 +33,8 @@ const CareerEvolutionTimeline = () => {
     },
     {
       year: '2021',
+      'AI Engineer': 95,
+      'AI Generalist': 65,
       'Data Science': 135,
       'Cloud Computing': 220,
       'UX/UI Design': 145,
@@ -38,6 +44,8 @@ const CareerEvolutionTimeline = () => {
     },
     {
       year: '2022',
+      'AI Engineer': 145,
+      'AI Generalist': 105,
       'Data Science': 165,
       'Cloud Computing': 285,
       'UX/UI Design': 175,
@@ -47,6 +55,8 @@ const CareerEvolutionTimeline = () => {
     },
     {
       year: '2023',
+      'AI Engineer': 220,
+      'AI Generalist': 165,
       'Data Science': 190,
       'Cloud Computing': 350,
       'UX/UI Design': 200,
@@ -56,6 +66,8 @@ const CareerEvolutionTimeline = () => {
     },
     {
       year: '2024',
+      'AI Engineer': 340,
+      'AI Generalist': 275,
       'Data Science': 215,
       'Cloud Computing': 420,
       'UX/UI Design': 225,
@@ -69,6 +81,8 @@ const CareerEvolutionTimeline = () => {
   const salaryData = [
     {
       year: '2019',
+      'AI Engineer': 120,
+      'AI Generalist': 95,
       'Data Science': 95,
       'Cloud Computing': 105,
       'UX/UI Design': 75,
@@ -78,6 +92,8 @@ const CareerEvolutionTimeline = () => {
     },
     {
       year: '2024',
+      'AI Engineer': 180,
+      'AI Generalist': 140,
       'Data Science': 130,
       'Cloud Computing': 145,
       'UX/UI Design': 95,
@@ -88,6 +104,22 @@ const CareerEvolutionTimeline = () => {
   ];
 
   const careers = [
+    {
+      name: 'AI Engineer',
+      icon: '🤖',
+      color: '#FF3366',
+      growth: '+656%',
+      avgSalary: '$180k',
+      description: 'Building and deploying AI systems and machine learning models'
+    },
+    {
+      name: 'AI Generalist',
+      icon: '🧠',
+      color: '#33FF99',
+      growth: '+1000%',
+      avgSalary: '$140k',
+      description: 'Versatile AI professional across multiple domains and applications'
+    },
     {
       name: 'Data Science',
       icon: '📊',
@@ -107,7 +139,7 @@ const CareerEvolutionTimeline = () => {
     {
       name: 'UX/UI Design',
       icon: '🎨',
-      color: '#D500F9',
+      color: '#9C27B0',
       growth: '+137%',
       avgSalary: '$95k',
       description: 'Creating intuitive and beautiful user experiences'
@@ -130,7 +162,7 @@ const CareerEvolutionTimeline = () => {
     },
     {
       name: 'Mental Health Support',
-      icon: '🧠',
+      icon: '💚',
       color: '#FF9800',
       growth: '+411%',
       avgSalary: '$75k',
@@ -139,9 +171,11 @@ const CareerEvolutionTimeline = () => {
   ];
 
   const chartConfig = {
+    'AI Engineer': { label: 'AI Engineer', color: '#FF3366' },
+    'AI Generalist': { label: 'AI Generalist', color: '#33FF99' },
     'Data Science': { label: 'Data Science', color: '#C6FF00' },
     'Cloud Computing': { label: 'Cloud Computing', color: '#00E5FF' },
-    'UX/UI Design': { label: 'UX/UI Design', color: '#D500F9' },
+    'UX/UI Design': { label: 'UX/UI Design', color: '#9C27B0' },
     'Climate Tech': { label: 'Climate Tech', color: '#4CAF50' },
     'Cybersecurity': { label: 'Cybersecurity', color: '#FF5722' },
     'Mental Health Support': { label: 'Mental Health Support', color: '#FF9800' }

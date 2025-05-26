@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -32,11 +31,11 @@ const RoleLibrary = () => {
       id: '1',
       title: 'AI Engineer',
       category: 'Technology',
-      description: 'Design and develop artificial intelligence systems and machine learning models to solve complex problems.',
-      salaryRange: '$90K - $180K',
-      growthRate: '40%',
-      skills: ['Machine Learning', 'Python', 'TensorFlow', 'Data Analysis', 'Deep Learning'],
-      certifications: ['Google AI Certificate', 'AWS ML Specialty', 'TensorFlow Developer'],
+      description: 'Design and develop artificial intelligence systems, machine learning models, and neural networks to solve complex problems.',
+      salaryRange: '$120K - $220K',
+      growthRate: '656%',
+      skills: ['Machine Learning', 'Python', 'TensorFlow', 'PyTorch', 'Deep Learning', 'Neural Networks'],
+      certifications: ['Google AI Certificate', 'AWS ML Specialty', 'TensorFlow Developer', 'Azure AI Engineer'],
       courses: ['CS229 Machine Learning (Stanford)', 'Deep Learning Specialization (Coursera)', 'Fast.ai Practical Deep Learning'],
       workLifeBalance: 'Medium',
       futureOutlook: 'Booming',
@@ -44,6 +43,20 @@ const RoleLibrary = () => {
     },
     {
       id: '2',
+      title: 'AI Generalist',
+      category: 'Technology',
+      description: 'Versatile AI professional working across multiple domains, from NLP to computer vision, with broad AI knowledge.',
+      salaryRange: '$90K - $180K',
+      growthRate: '1000%',
+      skills: ['Python', 'Machine Learning', 'Data Analysis', 'NLP', 'Computer Vision', 'AI Ethics'],
+      certifications: ['IBM AI Engineering Certificate', 'Google AI Certificate', 'Microsoft Azure AI Fundamentals'],
+      courses: ['AI for Everyone (Coursera)', 'Introduction to Artificial Intelligence (edX)', 'Applied AI Course'],
+      workLifeBalance: 'High',
+      futureOutlook: 'Booming',
+      remote: true
+    },
+    {
+      id: '3',
       title: 'UX/UI Designer',
       category: 'Creative',
       description: 'Create intuitive and beautiful digital experiences through user research, prototyping, and visual design.',
@@ -57,7 +70,7 @@ const RoleLibrary = () => {
       remote: true
     },
     {
-      id: '3',
+      id: '4',
       title: 'Cybersecurity Analyst',
       category: 'Technology',
       description: 'Protect organizations from cyber threats by monitoring, detecting, and responding to security incidents.',
@@ -71,7 +84,7 @@ const RoleLibrary = () => {
       remote: true
     },
     {
-      id: '4',
+      id: '5',
       title: 'Registered Nurse',
       category: 'Healthcare',
       description: 'Provide direct patient care, educate patients about health conditions, and coordinate care with healthcare teams.',
@@ -85,7 +98,7 @@ const RoleLibrary = () => {
       remote: false
     },
     {
-      id: '5',
+      id: '6',
       title: 'Data Scientist',
       category: 'Technology',
       description: 'Extract insights from large datasets using statistical analysis, machine learning, and data visualization.',
@@ -99,7 +112,7 @@ const RoleLibrary = () => {
       remote: true
     },
     {
-      id: '6',
+      id: '7',
       title: 'Digital Marketing Manager',
       category: 'Business',
       description: 'Develop and execute digital marketing strategies across multiple channels to drive brand awareness and sales.',
