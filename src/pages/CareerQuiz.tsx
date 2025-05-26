@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -317,12 +318,16 @@ const CareerQuiz = () => {
               >
                 🔄 Retake Quiz
               </Button>
-              <Button className="bg-neon-purple text-white glow-button">
-                📚 Explore Role Library
-              </Button>
-              <Button className="bg-electric-blue text-black glow-button">
-                🗺️ View Skills Roadmap
-              </Button>
+              <Link to="/roles">
+                <Button className="bg-neon-purple text-white glow-button">
+                  📚 Explore Role Library
+                </Button>
+              </Link>
+              <Link to="/roadmap">
+                <Button className="bg-electric-blue text-black glow-button">
+                  🗺️ View Skills Roadmap
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

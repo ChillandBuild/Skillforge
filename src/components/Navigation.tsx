@@ -26,8 +26,8 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="text-2xl font-poppins font-bold">
-              <span className="text-neon-lime">Career</span>
-              <span className="text-neon-purple">Flow</span>
+              <span className="text-neon-lime">Skill</span>
+              <span className="text-neon-purple">Forge</span>
             </div>
           </Link>
 
