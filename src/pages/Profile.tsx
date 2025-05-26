@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -10,17 +11,24 @@ import { Link, useNavigate } from 'react-router-dom';
 const Profile = () => {
   const { points, badges, getBadgeProgress } = useGame();
   const navigate = useNavigate();
+  
+  // Check if user is signed in (you can replace this with actual auth logic)
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('isSignedIn') === 'true';
+  });
 
   // Mock user data - in a real app, this would come from your auth system
   const user = {
     name: 'Alex Johnson',
     email: 'alex.johnson@email.com',
-    currentRole: 'Exploring Career Paths',
+    currentRole: 'AI Engineer',
     joinDate: 'January 2024',
-    bio: 'High school student passionate about technology and design. Currently exploring different career paths to find the perfect fit for my skills and interests.',
-    interests: ['Web Development', 'UX Design', 'Digital Marketing'],
-    avatar: null, // null means no avatar uploaded
-    isAuthenticated: false // Set to false to show sign in/up options
+    bio: 'Passionate about artificial intelligence and machine learning. Currently exploring different AI applications and building innovative solutions.',
+    interests: ['Machine Learning', 'Deep Learning', 'Computer Vision', 'NLP'],
+    avatar: null,
+    location: 'San Francisco, CA',
+    company: 'Tech Innovations Inc.',
+    experience: '2 years'
   };
 
   const userStats = {
@@ -31,20 +39,12 @@ const Profile = () => {
     skillsLearned: 15
   };
 
-  const achievements = [
-    { title: 'Career Explorer', description: 'Explored 10+ careers', unlocked: userStats.careersExplored >= 10 },
-    { title: 'Knowledge Seeker', description: 'Completed 3 quizzes', unlocked: userStats.quizzesTaken >= 3 },
-    { title: 'Story Enthusiast', description: 'Watched 5+ career stories', unlocked: userStats.storiesWatched >= 5 },
-    { title: 'Skill Builder', description: 'Started 2 roadmaps', unlocked: userStats.roadmapsStarted >= 2 },
-    { title: 'Learning Champion', description: 'Earned 1000+ points', unlocked: points >= 1000 }
-  ];
-
   const recentActivity = [
     { type: 'quiz', title: 'Completed Career Discovery Quiz', points: 50, time: '2 hours ago' },
-    { type: 'explore', title: 'Explored UX Designer role', points: 20, time: '1 day ago' },
-    { type: 'story', title: 'Watched "From Nurse to Tech Entrepreneur"', points: 10, time: '2 days ago' },
-    { type: 'roadmap', title: 'Started Full-Stack Web Developer roadmap', points: 30, time: '3 days ago' },
-    { type: 'badge', title: 'Earned Career Curious badge', points: 0, time: '1 week ago' }
+    { type: 'explore', title: 'Explored AI Engineer role', points: 20, time: '1 day ago' },
+    { type: 'story', title: 'Watched "From Student to AI Engineer"', points: 10, time: '2 days ago' },
+    { type: 'roadmap', title: 'Started AI Engineer roadmap', points: 30, time: '3 days ago' },
+    { type: 'badge', title: 'Earned Career Explorer badge', points: 0, time: '1 week ago' }
   ];
 
   const getActivityIcon = (type: string) => {
@@ -58,15 +58,20 @@ const Profile = () => {
     }
   };
 
-  const nextLevelPoints = Math.ceil(points / 100) * 100;
-  const progressToNextLevel = ((points % 100) / 100) * 100;
-
   const handleContinueAsGuest = () => {
     navigate('/');
   };
 
+  const handleSignIn = () => {
+    navigate('/signin');
+  };
+
+  const handleSignUp = () => {
+    navigate('/signup');
+  };
+
   // If user is not authenticated, show sign in/up options
-  if (!user.isAuthenticated) {
+  if (!isAuthenticated) {
     return (
       <div className="min-h-screen py-20 px-4 flex items-center justify-center">
         <Card className="glass-card border-gray-800 max-w-md w-full">
@@ -80,17 +85,20 @@ const Profile = () => {
             </p>
             
             <div className="space-y-3">
-              <Link to="/signin" className="block">
-                <Button className="w-full bg-neon-lime text-black hover:bg-neon-lime/90 glow-button">
-                  🔑 Sign In
-                </Button>
-              </Link>
+              <Button 
+                className="w-full bg-neon-lime text-black hover:bg-neon-lime/90 glow-button"
+                onClick={handleSignIn}
+              >
+                🔑 Sign In
+              </Button>
               
-              <Link to="/signup" className="block">
-                <Button variant="outline" className="w-full border-gray-600 text-white hover:border-neon-lime">
-                  ✨ Create Account
-                </Button>
-              </Link>
+              <Button 
+                variant="outline" 
+                className="w-full border-gray-600 text-white hover:border-neon-lime"
+                onClick={handleSignUp}
+              >
+                ✨ Create Account
+              </Button>
             </div>
 
             <div className="text-center pt-4 border-t border-gray-700">
@@ -125,7 +133,8 @@ const Profile = () => {
               {user.name}
             </h1>
             <p className="text-neon-lime font-medium mb-1">{user.currentRole}</p>
-            <p className="text-gray-400 text-sm">Member since {user.joinDate}</p>
+            <p className="text-gray-400 text-sm">{user.company} • {user.location}</p>
+            <p className="text-gray-400 text-sm">Member since {user.joinDate} • {user.experience} experience</p>
           </div>
           
           <div className="max-w-2xl mx-auto">
@@ -161,7 +170,7 @@ const Profile = () => {
                     <span className="text-gray-400">Level Progress</span>
                     <span className="text-neon-lime">{Math.floor(points / 100) + 1}</span>
                   </div>
-                  <Progress value={progressToNextLevel} className="h-3" />
+                  <Progress value={((points % 100) / 100) * 100} className="h-3" />
                   <div className="text-xs text-gray-500 mt-1">
                     {100 - (points % 100)} points to level {Math.floor(points / 100) + 2}
                   </div>
@@ -263,7 +272,7 @@ const Profile = () => {
                         <div className="text-xs text-gray-400 mt-1">{badge.description}</div>
                         {badge.earned && badge.earnedDate && (
                           <div className="text-xs text-gray-500 mt-1">
-                            Earned {badge.earnedDate.toLocaleDateString()}
+                            Earned {new Date(badge.earnedDate).toLocaleDateString()}
                           </div>
                         )}
                       </div>
@@ -291,7 +300,7 @@ const Profile = () => {
                 </Link>
                 <Link to="/roadmap">
                   <Button className="w-full bg-electric-blue text-black hover:bg-electric-blue/90 glow-button">
-                    🗺️ Continue Roadmap
+                    🗺️ Continue Learning Path
                   </Button>
                 </Link>
                 <Link to="/stories">
@@ -299,6 +308,16 @@ const Profile = () => {
                     🎥 Watch Success Stories
                   </Button>
                 </Link>
+                <Button 
+                  variant="outline" 
+                  className="w-full border-gray-600 text-white hover:border-red-500 hover:text-red-500"
+                  onClick={() => {
+                    localStorage.removeItem('isSignedIn');
+                    setIsAuthenticated(false);
+                  }}
+                >
+                  🚪 Sign Out
+                </Button>
               </CardContent>
             </Card>
           </div>

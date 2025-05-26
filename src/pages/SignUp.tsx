@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,6 +15,7 @@ const SignUp = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,8 +43,13 @@ const SignUp = () => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      console.log('Sign up attempt:', formData);
-      // Here you would handle the actual sign up logic
+      console.log('Sign up successful:', formData);
+      
+      // Set authentication state
+      localStorage.setItem('isSignedIn', 'true');
+      
+      // Navigate to profile page
+      navigate('/profile');
     }, 1000);
   };
 

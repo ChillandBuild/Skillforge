@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,7 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,8 +19,13 @@ const SignIn = () => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      console.log('Sign in attempt:', { email, password });
-      // Here you would handle the actual sign in logic
+      console.log('Sign in successful:', { email, password });
+      
+      // Set authentication state
+      localStorage.setItem('isSignedIn', 'true');
+      
+      // Navigate to profile page
+      navigate('/profile');
     }, 1000);
   };
 

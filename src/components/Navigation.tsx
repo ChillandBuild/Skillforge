@@ -2,18 +2,17 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { useGame } from '@/contexts/GameContext';
+import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
-  const { points } = useGame();
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
     { path: '/', label: 'Home', icon: '🏠' },
     { path: '/quiz', label: 'Career Quiz', icon: '🎯' },
     { path: '/roles', label: 'Role Library', icon: '📚' },
-    { path: '/roadmap', label: 'Skills Roadmap', icon: '🗺️' },
+    { path: '/roadmap', label: 'Self-Taught Mastery', icon: '🗺️' },
     { path: '/compare', label: 'Compare', icon: '⚖️' },
     { path: '/stories', label: 'Stories', icon: '🎥' },
     { path: '/profile', label: 'Profile', icon: '👤' }
@@ -31,7 +30,7 @@ const Navigation = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => (
               <Link key={item.path} to={item.path}>
@@ -50,27 +49,19 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Points Display */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-2 bg-gray-900 px-3 py-1 rounded-full">
-              <span className="text-neon-lime">⭐</span>
-              <span className="text-sm font-medium">{points} pts</span>
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
+          {/* Hamburger Menu Button */}
           <Button
             variant="ghost"
-            className="md:hidden"
+            className="md:hidden text-white hover:text-neon-lime"
             onClick={() => setIsOpen(!isOpen)}
           >
-            <span className="text-xl">{isOpen ? '✕' : '☰'}</span>
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Menu */}
         {isOpen && (
-          <div className="md:hidden py-4 space-y-2">
+          <div className="md:hidden py-4 space-y-2 border-t border-gray-800">
             {navItems.map((item) => (
               <Link key={item.path} to={item.path} onClick={() => setIsOpen(false)}>
                 <Button
@@ -86,10 +77,6 @@ const Navigation = () => {
                 </Button>
               </Link>
             ))}
-            <div className="flex items-center justify-center space-x-2 bg-gray-900 px-3 py-2 rounded-full mt-4">
-              <span className="text-neon-lime">⭐</span>
-              <span className="text-sm font-medium">{points} pts</span>
-            </div>
           </div>
         )}
       </div>
