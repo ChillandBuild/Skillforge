@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useGame } from '@/contexts/GameContext';
 import { useToast } from '@/hooks/use-toast';
+import { ChevronLeft, BookOpen, Clock, CheckCircle } from 'lucide-react';
 
 const SkillsRoadmap = () => {
   const { addPoints } = useGame();
@@ -13,6 +14,7 @@ const SkillsRoadmap = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [enrolledRoadmaps, setEnrolledRoadmaps] = useState<number[]>([]);
+  const [selectedRoadmap, setSelectedRoadmap] = useState<number | null>(null);
 
   const roadmaps = [
     {
@@ -24,7 +26,48 @@ const SkillsRoadmap = () => {
       skills: ['HTML/CSS', 'JavaScript', 'React', 'Node.js', 'Database'],
       progress: 0,
       category: 'tech',
-      learningUrl: 'https://www.freecodecamp.org/learn/responsive-web-design/'
+      roadmapSteps: [
+        {
+          phase: 'Phase 1: Web Fundamentals',
+          duration: '2-3 months',
+          topics: [
+            { name: 'HTML Basics', resources: ['MDN HTML Guide', 'freeCodeCamp HTML Course'], completed: false },
+            { name: 'CSS Styling', resources: ['CSS-Tricks', 'Flexbox Froggy Game', 'Grid Garden'], completed: false },
+            { name: 'JavaScript Fundamentals', resources: ['JavaScript.info', 'Eloquent JavaScript Book'], completed: false },
+            { name: 'Version Control', resources: ['Git Tutorial', 'GitHub Learning Lab'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 2: Frontend Development',
+          duration: '2-3 months',
+          topics: [
+            { name: 'Advanced JavaScript', resources: ['You Don\'t Know JS', 'JavaScript30 Course'], completed: false },
+            { name: 'React Fundamentals', resources: ['React Official Tutorial', 'React Beta Docs'], completed: false },
+            { name: 'State Management', resources: ['Redux Toolkit Guide', 'Context API Tutorial'], completed: false },
+            { name: 'Build Tools', resources: ['Vite Documentation', 'Webpack Guide'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 3: Backend Development',
+          duration: '2-3 months',
+          topics: [
+            { name: 'Node.js Basics', resources: ['Node.js Official Guide', 'Express.js Tutorial'], completed: false },
+            { name: 'Database Management', resources: ['MongoDB University', 'PostgreSQL Tutorial'], completed: false },
+            { name: 'API Development', resources: ['REST API Guide', 'GraphQL Tutorial'], completed: false },
+            { name: 'Authentication', resources: ['JWT Guide', 'Passport.js Documentation'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 4: Full-Stack Integration',
+          duration: '1-2 months',
+          topics: [
+            { name: 'Project Architecture', resources: ['Clean Architecture Guide', 'MVC Pattern Tutorial'], completed: false },
+            { name: 'Testing', resources: ['Jest Documentation', 'Testing Library Guide'], completed: false },
+            { name: 'Deployment', resources: ['Vercel Guide', 'Netlify Documentation', 'Docker Basics'], completed: false },
+            { name: 'Portfolio Projects', resources: ['Build 3-5 Full-Stack Projects', 'GitHub Portfolio Setup'], completed: false }
+          ]
+        }
+      ]
     },
     {
       id: 2,
@@ -35,7 +78,36 @@ const SkillsRoadmap = () => {
       skills: ['SEO', 'Social Media', 'Content Marketing', 'Analytics'],
       progress: 0,
       category: 'marketing',
-      learningUrl: 'https://www.coursera.org/learn/introduction-digital-marketing'
+      roadmapSteps: [
+        {
+          phase: 'Phase 1: Marketing Fundamentals',
+          duration: '1 month',
+          topics: [
+            { name: 'Marketing Basics', resources: ['Google Digital Marketing Course', 'HubSpot Academy'], completed: false },
+            { name: 'Consumer Psychology', resources: ['Psychology of Marketing', 'Behavioral Economics'], completed: false },
+            { name: 'Brand Strategy', resources: ['Brand Building Guide', 'Logo Design Principles'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 2: Digital Channels',
+          duration: '2-3 months',
+          topics: [
+            { name: 'SEO Fundamentals', resources: ['Moz SEO Guide', 'Google SEO Starter Guide'], completed: false },
+            { name: 'Social Media Marketing', resources: ['Facebook Blueprint', 'LinkedIn Learning'], completed: false },
+            { name: 'Content Marketing', resources: ['Content Marketing Institute', 'Copywriting Guide'], completed: false },
+            { name: 'Email Marketing', resources: ['Mailchimp Academy', 'Email Marketing Guide'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 3: Analytics & Optimization',
+          duration: '1-2 months',
+          topics: [
+            { name: 'Google Analytics', resources: ['Google Analytics Academy', 'GA4 Complete Guide'], completed: false },
+            { name: 'PPC Advertising', resources: ['Google Ads Course', 'Facebook Ads Guide'], completed: false },
+            { name: 'Conversion Optimization', resources: ['A/B Testing Guide', 'Landing Page Optimization'], completed: false }
+          ]
+        }
+      ]
     },
     {
       id: 3,
@@ -46,7 +118,44 @@ const SkillsRoadmap = () => {
       skills: ['Design Thinking', 'Figma', 'Prototyping', 'User Research'],
       progress: 0,
       category: 'design',
-      learningUrl: 'https://www.coursera.org/learn/ui-ux-design'
+      roadmapSteps: [
+        {
+          phase: 'Phase 1: Design Fundamentals',
+          duration: '2 months',
+          topics: [
+            { name: 'Design Principles', resources: ['Design Elements & Principles', 'Typography Guide'], completed: false },
+            { name: 'Color Theory', resources: ['Adobe Color Guide', 'Color Psychology'], completed: false },
+            { name: 'Design Thinking', resources: ['IDEO Design Kit', 'Stanford d.school Resources'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 2: Tools & Software',
+          duration: '1-2 months',
+          topics: [
+            { name: 'Figma Mastery', resources: ['Figma Academy', 'Figma YouTube Channel'], completed: false },
+            { name: 'Adobe Creative Suite', resources: ['Adobe Tutorials', 'Photoshop Basics'], completed: false },
+            { name: 'Prototyping Tools', resources: ['InVision Guide', 'Principle for Mac'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 3: UX Research',
+          duration: '1-2 months',
+          topics: [
+            { name: 'User Research Methods', resources: ['Nielsen Norman Group', 'UX Research Guide'], completed: false },
+            { name: 'Usability Testing', resources: ['Steve Krug\'s Book', 'UserTesting Guide'], completed: false },
+            { name: 'Information Architecture', resources: ['IA Institute', 'Card Sorting Guide'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 4: Portfolio & Practice',
+          duration: '2-3 months',
+          topics: [
+            { name: 'Portfolio Development', resources: ['Behance Examples', 'Dribbble Inspiration'], completed: false },
+            { name: 'Case Study Writing', resources: ['UX Case Study Guide', 'Medium UX Articles'], completed: false },
+            { name: 'Design Systems', resources: ['Material Design', 'Atomic Design Methodology'], completed: false }
+          ]
+        }
+      ]
     },
     {
       id: 4,
@@ -57,7 +166,35 @@ const SkillsRoadmap = () => {
       skills: ['Excel', 'SQL', 'Python', 'Data Visualization'],
       progress: 0,
       category: 'data',
-      learningUrl: 'https://www.kaggle.com/learn'
+      roadmapSteps: [
+        {
+          phase: 'Phase 1: Data Fundamentals',
+          duration: '1-2 months',
+          topics: [
+            { name: 'Statistics Basics', resources: ['Khan Academy Statistics', 'StatQuest YouTube'], completed: false },
+            { name: 'Excel Advanced', resources: ['ExcelJet Tutorials', 'Microsoft Excel Training'], completed: false },
+            { name: 'Data Cleaning', resources: ['Data Cleaning Guide', 'OpenRefine Tutorial'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 2: Programming & SQL',
+          duration: '2 months',
+          topics: [
+            { name: 'SQL Fundamentals', resources: ['W3Schools SQL', 'SQLBolt Interactive'], completed: false },
+            { name: 'Python for Data', resources: ['Python.org Tutorial', 'Automate the Boring Stuff'], completed: false },
+            { name: 'Pandas & NumPy', resources: ['Pandas Documentation', '10 Minutes to Pandas'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 3: Data Visualization',
+          duration: '1-2 months',
+          topics: [
+            { name: 'Matplotlib & Seaborn', resources: ['Matplotlib Tutorials', 'Seaborn Gallery'], completed: false },
+            { name: 'Tableau Public', resources: ['Tableau Learning', 'Tableau Public Gallery'], completed: false },
+            { name: 'Power BI', resources: ['Microsoft Power BI Learning', 'Guy in a Cube YouTube'], completed: false }
+          ]
+        }
+      ]
     },
     {
       id: 5,
@@ -68,7 +205,44 @@ const SkillsRoadmap = () => {
       skills: ['Python', 'Machine Learning', 'TensorFlow', 'Neural Networks'],
       progress: 0,
       category: 'tech',
-      learningUrl: 'https://www.coursera.org/learn/machine-learning'
+      roadmapSteps: [
+        {
+          phase: 'Phase 1: Programming Foundation',
+          duration: '2-3 months',
+          topics: [
+            { name: 'Python Mastery', resources: ['Python.org Tutorial', 'Real Python'], completed: false },
+            { name: 'Mathematics for ML', resources: ['Khan Academy Linear Algebra', '3Blue1Brown Calculus'], completed: false },
+            { name: 'Statistics & Probability', resources: ['Think Stats Book', 'Probability Course'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 2: Machine Learning',
+          duration: '3-4 months',
+          topics: [
+            { name: 'ML Fundamentals', resources: ['Andrew Ng Course', 'Scikit-learn Documentation'], completed: false },
+            { name: 'Deep Learning', resources: ['Deep Learning Specialization', 'Fast.ai Course'], completed: false },
+            { name: 'Neural Networks', resources: ['Neural Networks and Deep Learning', '3Blue1Brown NN Series'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 3: Advanced AI',
+          duration: '2-3 months',
+          topics: [
+            { name: 'TensorFlow/PyTorch', resources: ['TensorFlow Tutorials', 'PyTorch Documentation'], completed: false },
+            { name: 'Computer Vision', resources: ['OpenCV Tutorial', 'CS231n Stanford Course'], completed: false },
+            { name: 'Natural Language Processing', resources: ['NLTK Documentation', 'Hugging Face Course'], completed: false }
+          ]
+        },
+        {
+          phase: 'Phase 4: Deployment & MLOps',
+          duration: '1-2 months',
+          topics: [
+            { name: 'Model Deployment', resources: ['Flask for ML', 'Docker for Data Science'], completed: false },
+            { name: 'MLOps Practices', resources: ['MLflow Tutorial', 'Kubeflow Guide'], completed: false },
+            { name: 'AI Ethics', resources: ['AI Ethics Course', 'Responsible AI Practices'], completed: false }
+          ]
+        }
+      ]
     }
   ];
 
@@ -92,22 +266,14 @@ const SkillsRoadmap = () => {
   });
 
   const handleStartRoadmap = (roadmap: typeof roadmaps[0]) => {
-    // Add to enrolled roadmaps
     setEnrolledRoadmaps(prev => [...prev, roadmap.id]);
-    
-    // Add points for starting a roadmap
+    setSelectedRoadmap(roadmap.id);
     addPoints(30);
     
-    // Show success toast
     toast({
       title: "🚀 Learning Started!",
-      description: `You've enrolled in ${roadmap.title}. Opening learning resources...`,
+      description: `You've enrolled in ${roadmap.title}. View your personalized roadmap below.`,
     });
-    
-    // Open the learning URL in a new tab
-    setTimeout(() => {
-      window.open(roadmap.learningUrl, '_blank');
-    }, 1000);
     
     console.log(`Started roadmap: ${roadmap.title}`);
   };
@@ -120,6 +286,101 @@ const SkillsRoadmap = () => {
       default: return 'bg-gray-500';
     }
   };
+
+  const currentRoadmap = selectedRoadmap ? roadmaps.find(r => r.id === selectedRoadmap) : null;
+
+  if (selectedRoadmap && currentRoadmap) {
+    return (
+      <div className="min-h-screen py-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          {/* Back Button */}
+          <Button
+            variant="outline"
+            onClick={() => setSelectedRoadmap(null)}
+            className="mb-6 text-white border-gray-600 hover:border-cyan-400"
+          >
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back to Courses
+          </Button>
+
+          {/* Roadmap Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-poppins font-bold mb-4 text-white">
+              {currentRoadmap.title} <span className="text-cyan-400">Roadmap</span>
+            </h1>
+            <p className="text-xl text-gray-300 mb-4">{currentRoadmap.description}</p>
+            <div className="flex justify-center gap-4 mb-6">
+              <Badge className={`${getDifficultyColor(currentRoadmap.difficulty)} text-white`}>
+                {currentRoadmap.difficulty}
+              </Badge>
+              <Badge className="bg-cyan-400 text-black">
+                <Clock className="mr-1 h-3 w-3" />
+                {currentRoadmap.duration}
+              </Badge>
+            </div>
+          </div>
+
+          {/* Learning Path */}
+          <div className="space-y-6">
+            {currentRoadmap.roadmapSteps.map((phase, phaseIndex) => (
+              <Card key={phaseIndex} className="glass-card border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-xl text-cyan-400 flex items-center">
+                    <BookOpen className="mr-2 h-5 w-5" />
+                    {phase.phase}
+                  </CardTitle>
+                  <p className="text-gray-400">Duration: {phase.duration}</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4">
+                    {phase.topics.map((topic, topicIndex) => (
+                      <div key={topicIndex} className="border border-gray-700 rounded-lg p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <h4 className="text-lg font-semibold text-white">{topic.name}</h4>
+                          <CheckCircle className="h-5 w-5 text-green-500" />
+                        </div>
+                        <div className="space-y-2">
+                          <p className="text-sm text-gray-400 mb-2">Recommended Resources:</p>
+                          <div className="flex flex-wrap gap-2">
+                            {topic.resources.map((resource, resourceIndex) => (
+                              <Badge 
+                                key={resourceIndex} 
+                                variant="outline" 
+                                className="text-xs border-gray-600 text-gray-300"
+                              >
+                                {resource}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Progress Tracking */}
+          <Card className="glass-card border-gray-800 mt-8">
+            <CardContent className="p-6">
+              <h3 className="text-xl font-bold text-cyan-400 mb-4">Your Progress</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm text-gray-400">
+                  <span>Overall Completion</span>
+                  <span>0%</span>
+                </div>
+                <Progress value={0} className="h-2" />
+                <p className="text-sm text-gray-500">
+                  Start learning and track your progress through each phase!
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen py-20 px-4">
@@ -231,7 +492,7 @@ const SkillsRoadmap = () => {
                     }`}
                     onClick={() => handleStartRoadmap(roadmap)}
                   >
-                    {isEnrolled ? '✅ Continue Learning' : '🚀 Start Learning Free'}
+                    {isEnrolled ? '📖 View Roadmap' : '🚀 Start Learning Free'}
                   </Button>
                 </CardContent>
               </Card>
