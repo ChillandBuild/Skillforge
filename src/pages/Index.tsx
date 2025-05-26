@@ -52,31 +52,27 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 text-center bg-gray-50">
+      <section className="relative py-20 px-4 text-center overflow-hidden">
+        <div className="absolute inset-0 neon-gradient opacity-10"></div>
         <div className="relative max-w-6xl mx-auto">
-          <div className="flex justify-center mb-8">
-            <div className="w-20 h-20 bg-black rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-2xl">CF</span>
-            </div>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-poppins font-bold mb-6 text-black">
+          <h1 className="text-5xl md:text-7xl font-poppins font-bold mb-6 animate-fade-in">
             Discover Your 
-            <span className="block text-gray-800">Dream Career</span>
+            <span className="block text-neon-lime">Dream Career</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
             The world's most advanced career guidance platform for teens and young adults. 
             Build your future using globally available, free education resources.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/quiz">
-              <Button className="bg-black text-white text-lg px-8 py-4 hover:bg-gray-800 transition-colors">
+              <Button className="bg-neon-lime text-black text-lg px-8 py-4 glow-button hover:bg-neon-lime/90">
                 🎯 Take Career Quiz
               </Button>
             </Link>
             <Link to="/roles">
-              <Button variant="outline" className="border-black text-black text-lg px-8 py-4 hover:bg-black hover:text-white transition-colors">
+              <Button variant="outline" className="border-neon-purple text-neon-purple text-lg px-8 py-4 glow-button hover:bg-neon-purple hover:text-black">
                 📚 Explore Careers
               </Button>
             </Link>
@@ -85,18 +81,18 @@ const Index = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-poppins font-bold text-center mb-16 text-black">
-            Why Choose <span className="text-gray-800">CareerFlow</span>?
+          <h2 className="text-4xl font-poppins font-bold text-center mb-16">
+            Why Choose <span className="text-neon-purple">CareerFlow</span>?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
-              <Card key={index} className="bg-white border-gray-300 hover:border-black transition-all duration-300 group shadow-sm">
+              <Card key={index} className="glass-card border-gray-800 hover:border-neon-lime transition-all duration-300 group">
                 <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">{benefit.icon}</div>
-                  <h3 className="text-xl font-poppins font-bold mb-2 text-black">{benefit.title}</h3>
-                  <p className="text-gray-600">{benefit.description}</p>
+                  <div className="text-4xl mb-4 group-hover:animate-glow">{benefit.icon}</div>
+                  <h3 className="text-xl font-poppins font-bold mb-2 text-neon-lime">{benefit.title}</h3>
+                  <p className="text-gray-300">{benefit.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -105,16 +101,16 @@ const Index = () => {
       </section>
 
       {/* Career Evolution Timeline CTA */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-20 px-4 bg-gray-900/30">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-poppins font-bold mb-6 text-black">
-            See Which <span className="text-gray-800">Careers Are Exploding</span>
+          <h2 className="text-4xl font-poppins font-bold mb-6">
+            See Which <span className="text-electric-blue">Careers Are Exploding</span>
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-gray-300 mb-8">
             Explore interactive charts showing the fastest-growing career fields and where opportunities are expanding
           </p>
           <Link to="/timeline">
-            <Button className="bg-black text-white text-lg px-8 py-4 hover:bg-gray-800 transition-colors">
+            <Button className="bg-electric-blue text-black text-lg px-8 py-4 glow-button hover:bg-electric-blue/90">
               📈 View Career Evolution Timeline
             </Button>
           </Link>
@@ -122,31 +118,31 @@ const Index = () => {
       </section>
 
       {/* Quick Start Section */}
-      <section className="py-20 px-4 bg-white">
+      <section className="py-20 px-4 bg-gray-900/50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-poppins font-bold mb-8 text-black">
-            Start Your Journey in <span className="text-gray-800">3 Steps</span>
+          <h2 className="text-4xl font-poppins font-bold mb-8">
+            Start Your Journey in <span className="text-electric-blue">3 Steps</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto">1</div>
-              <h3 className="text-xl font-poppins font-bold text-black">Take the Quiz</h3>
-              <p className="text-gray-600">Answer questions about your interests, skills, and personality</p>
+              <div className="w-16 h-16 bg-neon-lime rounded-full flex items-center justify-center text-black text-2xl font-bold mx-auto">1</div>
+              <h3 className="text-xl font-poppins font-bold">Take the Quiz</h3>
+              <p className="text-gray-300">Answer questions about your interests, skills, and personality</p>
             </div>
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto">2</div>
-              <h3 className="text-xl font-poppins font-bold text-black">Explore Matches</h3>
-              <p className="text-gray-600">Discover careers that align with your unique profile</p>
+              <div className="w-16 h-16 bg-neon-purple rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto">2</div>
+              <h3 className="text-xl font-poppins font-bold">Explore Matches</h3>
+              <p className="text-gray-300">Discover careers that align with your unique profile</p>
             </div>
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-gray-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto">3</div>
-              <h3 className="text-xl font-poppins font-bold text-black">Build Skills</h3>
-              <p className="text-gray-600">Follow personalized roadmaps with free global resources</p>
+              <div className="w-16 h-16 bg-electric-blue rounded-full flex items-center justify-center text-black text-2xl font-bold mx-auto">3</div>
+              <h3 className="text-xl font-poppins font-bold">Build Skills</h3>
+              <p className="text-gray-300">Follow personalized roadmaps with free global resources</p>
             </div>
           </div>
           <div className="mt-12">
             <Link to="/quiz">
-              <Button className="bg-black text-white text-xl px-12 py-6 hover:bg-gray-800 transition-colors">
+              <Button className="bg-neon-lime text-black text-xl px-12 py-6 glow-button">
                 Start Your Career Journey 🚀
               </Button>
             </Link>
@@ -155,21 +151,21 @@ const Index = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-poppins font-bold text-center mb-16 text-black">
-            Success Stories from <span className="text-gray-800">Around the World</span>
+          <h2 className="text-4xl font-poppins font-bold text-center mb-16">
+            Success Stories from <span className="text-coral">Around the World</span>
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-white border-gray-300 hover:border-black transition-all duration-300 shadow-sm">
+              <Card key={index} className="glass-card border-gray-800 hover:border-coral transition-all duration-300">
                 <CardContent className="p-6">
-                  <div className="text-black text-4xl mb-4">"</div>
-                  <p className="text-gray-600 mb-4 italic">{testimonial.quote}</p>
-                  <div className="border-t border-gray-300 pt-4">
-                    <h4 className="font-poppins font-bold text-black">{testimonial.name}, {testimonial.age}</h4>
-                    <p className="text-sm text-gray-500">{testimonial.location}</p>
-                    <p className="text-sm text-gray-700 font-medium">{testimonial.career}</p>
+                  <div className="text-coral text-4xl mb-4">"</div>
+                  <p className="text-gray-300 mb-4 italic">{testimonial.quote}</p>
+                  <div className="border-t border-gray-700 pt-4">
+                    <h4 className="font-poppins font-bold text-coral">{testimonial.name}, {testimonial.age}</h4>
+                    <p className="text-sm text-gray-400">{testimonial.location}</p>
+                    <p className="text-sm text-neon-lime">{testimonial.career}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -179,22 +175,22 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 text-center bg-white">
+      <section className="py-20 px-4 text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-poppins font-bold mb-6 text-black">
-            Ready to Transform Your <span className="text-gray-800">Future</span>?
+          <h2 className="text-4xl md:text-5xl font-poppins font-bold mb-6">
+            Ready to Transform Your <span className="text-neon-lime">Future</span>?
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-gray-300 mb-8">
             Join thousands of students worldwide who are building their dream careers with CareerFlow
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/quiz">
-              <Button className="bg-black text-white text-lg px-10 py-5 hover:bg-gray-800 transition-colors">
+              <Button className="bg-neon-lime text-black text-lg px-10 py-5 glow-button">
                 🎯 Take Career Quiz Now
               </Button>
             </Link>
             <Link to="/stories">
-              <Button variant="outline" className="border-black text-black text-lg px-10 py-5 hover:bg-black hover:text-white transition-colors">
+              <Button variant="outline" className="border-electric-blue text-electric-blue text-lg px-10 py-5 glow-button hover:bg-electric-blue hover:text-black">
                 🎥 Watch Success Stories
               </Button>
             </Link>
