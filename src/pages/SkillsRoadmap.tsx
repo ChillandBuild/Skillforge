@@ -324,16 +324,6 @@ const SkillsRoadmap = () => {
     }
   };
 
-  const filteredRoadmaps = roadmaps.filter(roadmap => {
-    const matchesSearch = roadmap.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         roadmap.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         roadmap.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesCategory = selectedCategory === 'all' || roadmap.category === selectedCategory;
-    
-    return matchesSearch && matchesCategory;
-  });
-
   const handleStartRoadmap = (roadmap: typeof roadmaps[0]) => {
     setEnrolledRoadmaps(prev => [...prev, roadmap.id]);
     setSelectedRoadmap(roadmap.id);
@@ -347,6 +337,32 @@ const SkillsRoadmap = () => {
     console.log(`Started roadmap: ${roadmap.title}`);
   };
 
+  const handleStartAIRoadmap = (skill: string) => {
+    // Create a custom roadmap for AI-generated content
+    const customRoadmap = {
+      id: Date.now(), // Use timestamp as unique ID
+      title: `AI-Generated: ${skill}`,
+      description: `Personalized learning path for ${skill}`,
+      duration: 'Varies',
+      difficulty: 'Adaptive',
+      skills: [skill],
+      progress: 0,
+      category: 'ai-generated',
+      roadmapSteps: []
+    };
+    
+    setEnrolledRoadmaps(prev => [...prev, customRoadmap.id]);
+    setSelectedRoadmap(customRoadmap.id);
+    addPoints(30);
+    
+    toast({
+      title: "🤖 AI Roadmap Created!",
+      description: `Your personalized learning path for ${skill} is ready.`,
+    });
+    
+    console.log(`Started AI roadmap: ${skill}`);
+  };
+
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'Beginner': return 'bg-emerald-500';
@@ -355,6 +371,16 @@ const SkillsRoadmap = () => {
       default: return 'bg-gray-500';
     }
   };
+
+  const filteredRoadmaps = roadmaps.filter(roadmap => {
+    const matchesSearch = roadmap.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         roadmap.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         roadmap.skills.some(skill => skill.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    const matchesCategory = selectedCategory === 'all' || roadmap.category === selectedCategory;
+    
+    return matchesSearch && matchesCategory;
+  });
 
   const currentRoadmap = selectedRoadmap ? roadmaps.find(r => r.id === selectedRoadmap) : null;
 
@@ -527,7 +553,7 @@ const SkillsRoadmap = () => {
                 <AISearchResults 
                   results={aiResults}
                   isLoading={isLoadingAI}
-                  onStartRoadmap={handleStartRoadmap}
+                  onStartRoadmap={handleStartAIRoadmap}
                   searchTerm={searchTerm}
                 />
               </div>

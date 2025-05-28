@@ -27,6 +27,10 @@ const AISearchResults = ({ results, isLoading, onStartRoadmap, searchTerm }: AIS
     return null;
   }
 
+  const handleCreateRoadmap = () => {
+    onStartRoadmap(searchTerm);
+  };
+
   return (
     <Card className="glass-card border-gray-800 bg-gradient-to-br from-cyan-400/10 to-emerald-500/10">
       <CardHeader>
@@ -47,7 +51,7 @@ const AISearchResults = ({ results, isLoading, onStartRoadmap, searchTerm }: AIS
         
         <div className="flex flex-wrap gap-4 pt-4 border-t border-gray-700">
           <Button 
-            onClick={() => onStartRoadmap(searchTerm)}
+            onClick={handleCreateRoadmap}
             className="bg-cyan-400 text-black hover:bg-cyan-500 glow-button"
           >
             <Briefcase className="mr-2 h-4 w-4" />
