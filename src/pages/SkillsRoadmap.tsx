@@ -66,12 +66,12 @@ const SkillsRoadmap = () => {
   };
 
   return (
-    <div className="min-h-screen py-20 px-4">
+    <div className="min-h-screen py-20 px-4 bg-black">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-poppins font-bold mb-4">
-            Self-Taught <span className="text-cyan-400">Mastery</span>
+          <h1 className="text-4xl font-poppins font-bold mb-4 text-white">
+            Self-Taught <span className="text-gray-400">Mastery</span>
           </h1>
           <p className="text-xl text-gray-300 mb-8">
             Skip the college debt. Master in-demand skills with free online resources.
@@ -80,10 +80,9 @@ const SkillsRoadmap = () => {
           {/* AI-Powered Search Section */}
           <div className="max-w-4xl mx-auto mb-12">
             <div className="relative mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-emerald-500/20 rounded-2xl blur-xl"></div>
-              <div className="relative bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
+              <div className="relative bg-gray-900 border border-gray-800 rounded-2xl p-8">
                 <div className="flex items-center justify-center mb-4">
-                  <Sparkles className="mr-3 h-8 w-8 text-cyan-400" />
+                  <Sparkles className="mr-3 h-8 w-8 text-white" />
                   <h2 className="text-3xl font-poppins font-bold text-white">
                     AI-Powered Learning Assistant
                   </h2>
@@ -100,12 +99,12 @@ const SkillsRoadmap = () => {
                       placeholder="What do you want to learn? (e.g., 'Python Programming', 'Digital Marketing', 'UI/UX Design')"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-16 pr-32 py-8 text-lg bg-gray-800 border-gray-700 text-white placeholder:text-gray-400 focus:border-cyan-400 focus:ring-cyan-400 rounded-xl"
+                      className="pl-16 pr-32 py-8 text-lg bg-gray-800 border-gray-700 text-white placeholder:text-gray-400 focus:border-white focus:ring-white rounded-xl"
                     />
                     <Button
                       type="submit"
                       disabled={isLoadingAI || !searchTerm.trim()}
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-cyan-400 to-emerald-500 text-black font-semibold px-6 py-3 rounded-lg hover:from-cyan-500 hover:to-emerald-600 glow-button"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white text-black font-semibold px-6 py-3 rounded-lg hover:bg-gray-200 glow-button"
                     >
                       {isLoadingAI ? (
                         <div className="flex items-center">
@@ -128,10 +127,20 @@ const SkillsRoadmap = () => {
               </div>
             </div>
 
+            {/* AI Search Results - Moved here */}
+            {(aiResults || isLoadingAI) && (
+              <AISearchResults 
+                results={aiResults}
+                isLoading={isLoadingAI}
+                onStartRoadmap={handleStartAIRoadmap}
+                searchTerm={searchTerm}
+              />
+            )}
+
             {/* How It Works Card */}
-            <Card className="glass-card border-gray-800 bg-gradient-to-br from-emerald-400/5 to-cyan-500/5 mb-8">
+            <Card className="bg-gray-900 border-gray-800 mb-8 mt-8">
               <CardHeader>
-                <CardTitle className="flex items-center text-xl text-emerald-400">
+                <CardTitle className="flex items-center text-xl text-white">
                   <Sparkles className="mr-3 h-5 w-5" />
                   How It Works
                 </CardTitle>
@@ -139,7 +148,7 @@ const SkillsRoadmap = () => {
               
               <CardContent className="space-y-6">
                 {/* What You Do Section */}
-                <div className="bg-gray-900/50 rounded-lg p-6 border border-gray-700">
+                <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
                   <h3 className="flex items-center text-lg font-semibold text-white mb-3">
                     🔍 What You Do
                   </h3>
@@ -150,25 +159,25 @@ const SkillsRoadmap = () => {
                 </div>
 
                 {/* What Our AI Delivers Section */}
-                <div className="bg-gray-900/50 rounded-lg p-6 border border-gray-700">
+                <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
                   <h3 className="flex items-center text-lg font-semibold text-white mb-4">
                     🤖 What Our AI Delivers
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-start text-left">
-                      <CheckCircle className="mr-3 h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="mr-3 h-5 w-5 text-white mt-0.5 flex-shrink-0" />
                       <div className="text-gray-300">
                         Step-by-step learning roadmap using free top-rated online courses (Coursera, YouTube, edX, Udemy, etc.)
                       </div>
                     </div>
                     <div className="flex items-start text-left">
-                      <Award className="mr-3 h-5 w-5 text-amber-500 mt-0.5 flex-shrink-0" />
+                      <Award className="mr-3 h-5 w-5 text-white mt-0.5 flex-shrink-0" />
                       <div className="text-gray-300">
                         Certification suggestions from trusted sources (Google, IBM, AWS, etc.)
                       </div>
                     </div>
                     <div className="flex items-start text-left">
-                      <Wrench className="mr-3 h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                      <Wrench className="mr-3 h-5 w-5 text-white mt-0.5 flex-shrink-0" />
                       <div className="text-gray-300">
                         Real-world project ideas (beginner → advanced) to build your portfolio
                       </div>
@@ -177,27 +186,27 @@ const SkillsRoadmap = () => {
                 </div>
 
                 {/* Example Output */}
-                <div className="bg-gray-900/50 rounded-lg p-6 border border-gray-700">
+                <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
                   <h3 className="flex items-center text-lg font-semibold text-white mb-4">
                     🚀 Example Output for: Python
                   </h3>
                   <div className="space-y-4">
-                    <div className="bg-gray-900/40 rounded-lg p-4 border-l-4 border-emerald-500 text-left">
+                    <div className="bg-gray-900 rounded-lg p-4 border-l-4 border-white text-left">
                       <h4 className="font-semibold text-white mb-2">Step 1: Learn Python Basics</h4>
                       <p className="text-gray-300 text-sm">• FreeCodeCamp YouTube Course</p>
                     </div>
                     
-                    <div className="bg-gray-900/40 rounded-lg p-4 border-l-4 border-cyan-500 text-left">
+                    <div className="bg-gray-900 rounded-lg p-4 border-l-4 border-gray-400 text-left">
                       <h4 className="font-semibold text-white mb-2">Step 2: Intermediate Projects</h4>
                       <p className="text-gray-300 text-sm">• Build a calculator, to-do app, or data scraper</p>
                     </div>
                     
-                    <div className="bg-gray-900/40 rounded-lg p-4 border-l-4 border-purple-500 text-left">
+                    <div className="bg-gray-900 rounded-lg p-4 border-l-4 border-gray-600 text-left">
                       <h4 className="font-semibold text-white mb-2">Step 3: Advanced Projects</h4>
                       <p className="text-gray-300 text-sm">• Create a Flask web app, automate Excel reports, integrate APIs</p>
                     </div>
                     
-                    <div className="bg-gray-900/40 rounded-lg p-4 border-l-4 border-amber-500 text-left">
+                    <div className="bg-gray-900 rounded-lg p-4 border-l-4 border-gray-300 text-left">
                       <h4 className="font-semibold text-white mb-2">Certifications:</h4>
                       <div className="space-y-1 text-gray-300 text-sm text-left">
                         <p>• Google Python Certificate</p>
@@ -208,18 +217,6 @@ const SkillsRoadmap = () => {
                 </div>
               </CardContent>
             </Card>
-
-            {/* AI Search Results */}
-            {(aiResults || isLoadingAI) && (
-              <div className="mb-12">
-                <AISearchResults 
-                  results={aiResults}
-                  isLoading={isLoadingAI}
-                  onStartRoadmap={handleStartAIRoadmap}
-                  searchTerm={searchTerm}
-                />
-              </div>
-            )}
           </div>
         </div>
       </div>

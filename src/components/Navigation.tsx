@@ -14,8 +14,7 @@ const Navigation = () => {
     { path: '/roles', label: 'Role Library', icon: '📚' },
     { path: '/roadmap', label: 'Self-Taught Mastery', icon: '🗺️' },
     { path: '/compare', label: 'Compare', icon: '⚖️' },
-    { path: '/stories', label: 'Stories', icon: '🎥' },
-    { path: '/profile', label: 'Profile', icon: '👤' }
+    { path: '/stories', label: 'Stories', icon: '🎥' }
   ];
 
   return (
@@ -25,8 +24,8 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="text-2xl font-poppins font-bold">
-              <span className="text-neon-lime">Skill</span>
-              <span className="text-neon-purple">Forge</span>
+              <span className="text-white">Skill</span>
+              <span className="text-gray-400">Forge</span>
             </div>
           </Link>
 
@@ -38,8 +37,8 @@ const Navigation = () => {
                   variant={location.pathname === item.path ? "secondary" : "ghost"}
                   className={`glow-button text-sm ${
                     location.pathname === item.path 
-                      ? 'bg-neon-lime text-black' 
-                      : 'text-white hover:text-neon-lime'
+                      ? 'bg-white text-black' 
+                      : 'text-white hover:text-gray-300'
                   }`}
                 >
                   <span className="mr-2">{item.icon}</span>
@@ -52,7 +51,7 @@ const Navigation = () => {
           {/* Hamburger Menu Button */}
           <Button
             variant="ghost"
-            className="md:hidden text-white hover:text-neon-lime"
+            className="md:hidden text-white hover:text-gray-300"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -68,8 +67,8 @@ const Navigation = () => {
                   variant={location.pathname === item.path ? "secondary" : "ghost"}
                   className={`w-full justify-start glow-button ${
                     location.pathname === item.path 
-                      ? 'bg-neon-lime text-black' 
-                      : 'text-white hover:text-neon-lime'
+                      ? 'bg-white text-black' 
+                      : 'text-white hover:text-gray-300'
                   }`}
                 >
                   <span className="mr-2">{item.icon}</span>
