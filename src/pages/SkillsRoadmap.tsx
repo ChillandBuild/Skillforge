@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,7 +6,10 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { useGame } from '@/contexts/GameContext';
 import { useToast } from '@/hooks/use-toast';
-import { ChevronLeft, BookOpen, Clock, CheckCircle, Search } from 'lucide-react';
+import { ChevronLeft, BookOpen, Clock, CheckCircle, Search, Sparkles } from 'lucide-react';
+import AISearchResults from '@/components/AISearchResults';
+import APIKeyInput from '@/components/APIKeyInput';
+import { generateLearningPath } from '@/services/perplexityService';
 
 const SkillsRoadmap = () => {
   const { addPoints } = useGame();
@@ -15,6 +18,17 @@ const SkillsRoadmap = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [enrolledRoadmaps, setEnrolledRoadmaps] = useState<number[]>([]);
   const [selectedRoadmap, setSelectedRoadmap] = useState<number | null>(null);
+  const [aiResults, setAiResults] = useState('');
+  const [isLoadingAI, setIsLoadingAI] = useState(false);
+  const [apiKey, setApiKey] = useState('');
+  const [showAPIKeyInput, setShowAPIKeyInput] = useState(false);
+
+  useEffect(() => {
+    const savedApiKey = localStorage.getItem('perplexity_api_key');
+    if (savedApiKey) {
+      setApiKey(savedApiKey);
+    }
+  }, []);
 
   const roadmaps = [
     {
@@ -255,6 +269,61 @@ const SkillsRoadmap = () => {
     { id: 'business', name: 'Business' }
   ];
 
+  const handleAISearch = async (term: string) => {
+    if (!apiKey && !showAPIKeyInput) {
+      setShowAPIKeyInput(true);
+      return;
+    }
+
+    if (!apiKey) {
+      toast({
+        title: "API Key Required",
+        description: "Please enter your Perplexity API key to use AI search.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoadingAI(true);
+    setAiResults('');
+    
+    try {
+      const results = await generateLearningPath(term, apiKey);
+      setAiResults(results);
+      
+      toast({
+        title: "🤖 AI Learning Path Generated!",
+        description: `Found a personalized roadmap for ${term}`,
+      });
+      
+      console.log(`AI search completed for: ${term}`);
+    } catch (error) {
+      console.error('AI search error:', error);
+      toast({
+        title: "Search Failed",
+        description: "Failed to generate AI learning path. Please check your API key.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingAI(false);
+    }
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      handleAISearch(searchTerm.trim());
+    }
+  };
+
+  const handleApiKeySubmit = (newApiKey: string) => {
+    setApiKey(newApiKey);
+    setShowAPIKeyInput(false);
+    if (searchTerm.trim()) {
+      handleAISearch(searchTerm.trim());
+    }
+  };
+
   const filteredRoadmaps = roadmaps.filter(roadmap => {
     const matchesSearch = roadmap.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          roadmap.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -394,29 +463,75 @@ const SkillsRoadmap = () => {
             Skip the college debt. Master in-demand skills with free online resources.
           </p>
           
-          {/* Prominent Search Section */}
+          {/* AI-Powered Search Section */}
           <div className="max-w-4xl mx-auto mb-12">
             <div className="relative mb-8">
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-emerald-500/20 rounded-2xl blur-xl"></div>
               <div className="relative bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
-                <h2 className="text-2xl font-poppins font-bold text-white mb-4">
-                  🔍 Search Learning Paths
-                </h2>
-                <p className="text-gray-300 mb-6">
-                  Find the perfect roadmap to master your chosen career from anywhere in the world
+                <div className="flex items-center justify-center mb-4">
+                  <Sparkles className="mr-3 h-8 w-8 text-cyan-400" />
+                  <h2 className="text-3xl font-poppins font-bold text-white">
+                    AI-Powered Learning Assistant
+                  </h2>
+                </div>
+                <p className="text-gray-300 mb-6 text-lg">
+                  Get a personalized, step-by-step learning roadmap for any skill using AI and the best free resources online
                 </p>
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-6 w-6" />
-                  <Input
-                    type="text"
-                    placeholder="Search by career, skill, or technology (e.g., 'AI Engineer', 'React', 'Digital Marketing')..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-12 pr-4 py-6 text-lg bg-gray-800 border-gray-700 text-white placeholder:text-gray-400 focus:border-cyan-400 focus:ring-cyan-400"
-                  />
+                
+                <form onSubmit={handleSearch} className="relative mb-6">
+                  <div className="relative">
+                    <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 h-6 w-6" />
+                    <Input
+                      type="text"
+                      placeholder="What do you want to learn? (e.g., 'Python Programming', 'Digital Marketing', 'UI/UX Design')"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-16 pr-32 py-8 text-lg bg-gray-800 border-gray-700 text-white placeholder:text-gray-400 focus:border-cyan-400 focus:ring-cyan-400 rounded-xl"
+                    />
+                    <Button
+                      type="submit"
+                      disabled={isLoadingAI || !searchTerm.trim()}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-cyan-400 to-emerald-500 text-black font-semibold px-6 py-3 rounded-lg hover:from-cyan-500 hover:to-emerald-600 glow-button"
+                    >
+                      {isLoadingAI ? (
+                        <div className="flex items-center">
+                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-black border-t-transparent mr-2"></div>
+                          Generating...
+                        </div>
+                      ) : (
+                        <>
+                          <Sparkles className="mr-2 h-4 w-4" />
+                          Generate AI Roadmap
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </form>
+
+                <div className="flex items-center justify-center text-sm text-gray-400">
+                  <span>✨ Powered by Perplexity AI • Free resources only • No subscriptions required</span>
                 </div>
               </div>
             </div>
+            
+            {/* API Key Input */}
+            {showAPIKeyInput && (
+              <div className="mb-8">
+                <APIKeyInput onApiKeySubmit={handleApiKeySubmit} />
+              </div>
+            )}
+
+            {/* AI Search Results */}
+            {(aiResults || isLoadingAI) && (
+              <div className="mb-12">
+                <AISearchResults 
+                  results={aiResults}
+                  isLoading={isLoadingAI}
+                  onStartRoadmap={handleStartRoadmap}
+                  searchTerm={searchTerm}
+                />
+              </div>
+            )}
             
             {/* Category Filters */}
             <div className="flex flex-wrap gap-3 justify-center">
@@ -438,7 +553,13 @@ const SkillsRoadmap = () => {
           </div>
         </div>
 
-        {/* Roadmap Grid */}
+        {/* Pre-built Roadmap Grid */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-poppins font-bold text-center mb-8 text-white">
+            Or Choose from <span className="text-cyan-400">Pre-Built Roadmaps</span>
+          </h2>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredRoadmaps.map((roadmap) => {
             const isEnrolled = enrolledRoadmaps.includes(roadmap.id);
