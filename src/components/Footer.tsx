@@ -14,8 +14,7 @@ const Footer = () => {
     ],
     resources: [
       { label: 'Career Stories', path: '/stories' },
-      { label: 'Evolution Timeline', path: '/timeline' },
-      { label: 'Profile', path: '/profile' }
+      { label: 'Evolution Timeline', path: '/timeline' }
     ],
     company: [
       { label: 'About Us', path: '#' },
@@ -26,7 +25,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900/50 border-t border-gray-800 mt-20">
+    <footer className="bg-black border-t border-white mt-20">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-4 gap-8 mb-8">
@@ -34,19 +33,19 @@ const Footer = () => {
           <div className="space-y-4">
             <Link to="/" className="flex items-center space-x-2">
               <div className="text-2xl font-poppins font-bold">
-                <span className="text-neon-lime">Skill</span>
-                <span className="text-neon-purple">Forge</span>
+                <span className="text-white">Skill</span>
+                <span className="text-white">Forge</span>
               </div>
             </Link>
-            <p className="text-gray-400 text-sm">
+            <p className="text-white text-sm">
               The most advanced career guidance platform for teens and young adults. 
               Master your career path with AI-powered insights.
             </p>
             <div className="flex space-x-4">
-              <span className="text-2xl cursor-pointer hover:text-neon-lime transition-colors">📧</span>
-              <span className="text-2xl cursor-pointer hover:text-neon-lime transition-colors">🐦</span>
-              <span className="text-2xl cursor-pointer hover:text-neon-lime transition-colors">💼</span>
-              <span className="text-2xl cursor-pointer hover:text-neon-lime transition-colors">📱</span>
+              <span className="text-2xl cursor-pointer hover:text-gray-300 transition-colors">📧</span>
+              <span className="text-2xl cursor-pointer hover:text-gray-300 transition-colors">🐦</span>
+              <span className="text-2xl cursor-pointer hover:text-gray-300 transition-colors">💼</span>
+              <span className="text-2xl cursor-pointer hover:text-gray-300 transition-colors">📱</span>
             </div>
           </div>
 
@@ -58,7 +57,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link 
                     to={link.path} 
-                    className="text-gray-400 hover:text-neon-lime transition-colors text-sm"
+                    className="text-white hover:text-gray-300 transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -75,7 +74,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <Link 
                     to={link.path} 
-                    className="text-gray-400 hover:text-neon-lime transition-colors text-sm"
+                    className="text-white hover:text-gray-300 transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -92,7 +91,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <a 
                     href={link.path} 
-                    className="text-gray-400 hover:text-neon-lime transition-colors text-sm"
+                    className="text-white hover:text-gray-300 transition-colors text-sm"
                   >
                     {link.label}
                   </a>
@@ -102,14 +101,14 @@ const Footer = () => {
           </div>
         </div>
 
-        <Separator className="bg-gray-700" />
+        <Separator className="bg-white" />
 
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 space-y-4 md:space-y-0">
-          <p className="text-gray-400 text-sm">
+          <p className="text-white text-sm">
             © {currentYear} SkillForge. All rights reserved.
           </p>
-          <div className="flex items-center space-x-4 text-sm text-gray-400">
+          <div className="flex items-center space-x-4 text-sm text-white">
             <span>🌍 Available worldwide</span>
             <span>•</span>
             <span>🎓 Free educational resources</span>
