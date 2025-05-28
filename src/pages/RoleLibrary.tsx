@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { Link } from 'react-router-dom';
 
 interface Role {
   id: string;
@@ -296,6 +297,25 @@ const RoleLibrary = () => {
           <p className="text-xl text-gray-300 mb-8">
             Explore 50+ career paths with global salary data, required skills, and free learning resources
           </p>
+
+          {/* Career Evolution Timeline CTA */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <Card className="glass-card border-gray-800 bg-gray-900/30">
+              <CardContent className="p-8 text-center">
+                <h2 className="text-3xl font-poppins font-bold mb-4">
+                  See Which <span className="text-electric-blue">Careers Are Exploding</span>
+                </h2>
+                <p className="text-lg text-gray-300 mb-6">
+                  Explore interactive charts showing the fastest-growing career fields and where opportunities are expanding
+                </p>
+                <Link to="/timeline">
+                  <Button className="bg-electric-blue text-black text-lg px-8 py-4 glow-button hover:bg-electric-blue/90">
+                    📈 View Career Evolution Timeline
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
 
           {/* Search and Filters */}
           <div className="max-w-2xl mx-auto space-y-4">
