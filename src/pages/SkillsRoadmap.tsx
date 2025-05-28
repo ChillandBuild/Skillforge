@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useGame } from '@/contexts/GameContext';
 import { useToast } from '@/hooks/use-toast';
-import { Search, Sparkles } from 'lucide-react';
+import { Search, Sparkles, CheckCircle, Award, Wrench } from 'lucide-react';
 import AISearchResults from '@/components/AISearchResults';
 import { generateLearningPath } from '@/services/perplexityService';
 
@@ -18,7 +18,6 @@ const SkillsRoadmap = () => {
   const [apiKey] = useState('pplx-B1em1fhzKFZEkrWltCv3rItZlDlr4U8gteVrqbzf2nNq76zODD');
 
   useEffect(() => {
-    // Store the API key in localStorage for persistence
     localStorage.setItem('perplexity_api_key', apiKey);
   }, [apiKey]);
 
@@ -128,6 +127,87 @@ const SkillsRoadmap = () => {
                 </div>
               </div>
             </div>
+
+            {/* How It Works Card */}
+            <Card className="glass-card border-gray-800 bg-gradient-to-br from-emerald-400/5 to-cyan-500/5 mb-8">
+              <CardHeader>
+                <CardTitle className="flex items-center text-xl text-emerald-400">
+                  <Sparkles className="mr-3 h-5 w-5" />
+                  How It Works
+                </CardTitle>
+              </CardHeader>
+              
+              <CardContent className="space-y-6">
+                {/* What You Do Section */}
+                <div className="bg-gray-900/50 rounded-lg p-6 border border-gray-700">
+                  <h3 className="flex items-center text-lg font-semibold text-white mb-3">
+                    🔍 What You Do
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed text-left">
+                    Just type a course name or skill you want to learn.<br />
+                    Examples: Data Science, Python, UX Design, Cloud Computing, AI Ethics
+                  </p>
+                </div>
+
+                {/* What Our AI Delivers Section */}
+                <div className="bg-gray-900/50 rounded-lg p-6 border border-gray-700">
+                  <h3 className="flex items-center text-lg font-semibold text-white mb-4">
+                    🤖 What Our AI Delivers
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-start text-left">
+                      <CheckCircle className="mr-3 h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <div className="text-gray-300">
+                        Step-by-step learning roadmap using free top-rated online courses (Coursera, YouTube, edX, Udemy, etc.)
+                      </div>
+                    </div>
+                    <div className="flex items-start text-left">
+                      <Award className="mr-3 h-5 w-5 text-amber-500 mt-0.5 flex-shrink-0" />
+                      <div className="text-gray-300">
+                        Certification suggestions from trusted sources (Google, IBM, AWS, etc.)
+                      </div>
+                    </div>
+                    <div className="flex items-start text-left">
+                      <Wrench className="mr-3 h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                      <div className="text-gray-300">
+                        Real-world project ideas (beginner → advanced) to build your portfolio
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Example Output */}
+                <div className="bg-gray-900/50 rounded-lg p-6 border border-gray-700">
+                  <h3 className="flex items-center text-lg font-semibold text-white mb-4">
+                    🚀 Example Output for: Python
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="bg-gray-900/40 rounded-lg p-4 border-l-4 border-emerald-500 text-left">
+                      <h4 className="font-semibold text-white mb-2">Step 1: Learn Python Basics</h4>
+                      <p className="text-gray-300 text-sm">• FreeCodeCamp YouTube Course</p>
+                    </div>
+                    
+                    <div className="bg-gray-900/40 rounded-lg p-4 border-l-4 border-cyan-500 text-left">
+                      <h4 className="font-semibold text-white mb-2">Step 2: Intermediate Projects</h4>
+                      <p className="text-gray-300 text-sm">• Build a calculator, to-do app, or data scraper</p>
+                    </div>
+                    
+                    <div className="bg-gray-900/40 rounded-lg p-4 border-l-4 border-purple-500 text-left">
+                      <h4 className="font-semibold text-white mb-2">Step 3: Advanced Projects</h4>
+                      <p className="text-gray-300 text-sm">• Create a Flask web app, automate Excel reports, integrate APIs</p>
+                    </div>
+                    
+                    <div className="bg-gray-900/40 rounded-lg p-4 border-l-4 border-amber-500 text-left">
+                      <h4 className="font-semibold text-white mb-2">Certifications:</h4>
+                      <div className="space-y-1 text-gray-300 text-sm text-left">
+                        <p>• Google Python Certificate</p>
+                        <p>• IBM Python for Data Science (Coursera)</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
             {/* AI Search Results */}
             {(aiResults || isLoadingAI) && (
